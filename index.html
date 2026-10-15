@@ -250,11 +250,43 @@
   }
   .wiz-btn-primary:hover { background: #a06a10; border-color: #a06a10; }
 
-  /* Dish photos */
+  /* Dish photos: Pinterest-style staggered grid */
+  ol.dishes {
+    display: block;
+    columns: 200px auto;
+    column-gap: 14px;
+  }
   ol.dishes li {
+    break-inside: avoid;
+    display: block;
+    margin: 0 0 14px;
+    background: var(--paper);
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    overflow: hidden;
+    padding: 0;
+  }
+  ol.dishes .thumb {
     display: flex;
-    align-items: center;
-    gap: 0;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 4 / 5;
+    flex: none;
+    margin: 0;
+    border-radius: 0;
+    border: none;
+    font-size: 3.2rem;
+  }
+  ol.dishes .thumb.no-photo {
+    background: linear-gradient(160deg, #F6E7D2, #EBD5D0);
+  }
+  ol.dishes .caption {
+    display: flex;
+    gap: 6px;
+    align-items: baseline;
+    padding: 10px 12px 12px;
+    font-size: 0.95rem;
+    line-height: 1.3;
   }
   .thumb {
     flex: 0 0 52px;
@@ -851,7 +883,10 @@
         const label = document.createElement("span");
         label.className = "dish-name";
         label.textContent = item;
-        li.append(dishPhoto(item, "thumb"), num, label);
+        const caption = document.createElement("div");
+        caption.className = "caption";
+        caption.append(num, label);
+        li.append(dishPhoto(item, "thumb"), caption);
         list.appendChild(li);
       });
       sectionEl.appendChild(list);
