@@ -825,6 +825,12 @@
   /* Meet Nupur photo: fixed, shorter frame with her face kept in view */
   .chef-section .chef > img { width: 100% !important; height: 620px !important; max-height: 620px !important; object-fit: cover !important; object-position: 50% 8% !important; }
   @media (max-width: 720px) { .chef-section .chef > img { height: 500px !important; max-height: 500px !important; } }
+  /* Kya banau: big "Help me decide" button and short explainer */
+  .wiz-info { max-width: 560px; margin: 14px auto 18px; color: var(--muted); font-size: 1rem; line-height: 1.6; }
+  .wiz-btn-big { font-size: 1.3rem; font-weight: 700; padding: 18px 44px; border-radius: 999px; background: #7E3F4A; color: #FFF8EE; border: none; cursor: pointer; box-shadow: 0 6px 18px rgba(126, 63, 74, 0.28); }
+  .wiz-btn-big:hover { background: #652F3A; }
+  .wiz-btn-big:focus-visible { outline: 3px solid #D9A441; outline-offset: 3px; }
+  @media (max-width: 720px) { .wiz-btn-big { width: 100%; font-size: 1.15rem; padding: 16px 20px; } }
 </style>
 </head>
 <body>
@@ -1105,7 +1111,9 @@
       wizardEl.innerHTML = `
         <h2 class="wiz-title">Kya banau?</h2>
         <p class="wiz-q">Kya hua? Nahi pata kya khana hai?</p>
-        <p class="wiz-sub">Chalo, thoda socho. Kis cheez ka mann hai?</p>
+        <p class="wiz-info">Kya banau? picks one full plate for tonight. Tell it what you feel like, choose rice or roti for mains, and it decides. Don't like the pick? Hit "Pick another" or start over.</p>
+        <button class="wiz-btn wiz-btn-big" type="button" data-action="decide">Help me decide</button>
+        <p class="wiz-sub">Ya phir khud chuno. Kis cheez ka mann hai?</p>
         ${chips("craving", CRAVINGS)}`;
       return;
     }
@@ -1175,6 +1183,14 @@
     }
     if (action) {
       const name = action.dataset.action;
+      if (name === "decide") {
+        const pickFrom = ["main", "appetizers", "mithai", "beverages", "namkeen"];
+        const craving = pickFrom[Math.floor(Math.random() * pickFrom.length)];
+        state = { craving, side: craving === "main" ? "either" : null };
+        result = null;
+        showResult();
+        return;
+      }
       if (name === "again") showResult();
       if (name === "restart") { state = { craving: null, side: null }; result = null; renderWizard(); }
       if (name === "back") { state = { craving: null, side: null }; result = null; renderWizard(); }
