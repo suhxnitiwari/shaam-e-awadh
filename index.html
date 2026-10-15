@@ -760,6 +760,7 @@
   .car-arrow:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; border-radius: 4px; }
   .car-controls, .car-count { display: none; }
   .foot-hindi { font-style: italic; margin-top: 4px; }
+  .wiz-sub { color: var(--muted); margin: 4px 0 14px; font-size: 0.98rem; }
 </style>
 </head>
 <body>
@@ -1046,14 +1047,15 @@
     if (!state.craving) {
       wizardEl.innerHTML = `
         <h2 class="wiz-title">Kya banau?</h2>
-        <p class="wiz-q">What are we in the mood for?</p>
+        <p class="wiz-q">Kya hua? Nahi pata kya khana hai?</p>
+        <p class="wiz-sub">Chalo, thoda socho. Kis cheez ka mann hai?</p>
         ${chips("craving", CRAVINGS)}`;
       return;
     }
     if (state.craving === "main" && !state.side) {
       wizardEl.innerHTML = `
         <h2 class="wiz-title">Kya banau?</h2>
-        <p class="wiz-q">Rice or roti with it?</p>
+        <p class="wiz-q">Ek minute, rice ya roti?</p>
         ${chips("side", SIDES)}
         <div class="wiz-actions"><button class="wiz-btn" type="button" data-action="back">Back</button></div>`;
       return;
