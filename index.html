@@ -621,12 +621,20 @@
       icon: "🥟",
       groups: [
         { name: "", items: [
-          "Pani Puri", "Dahi Puri", "Samosa", "Aloo Tikki Chaat", "Moonglet",
+          "Pani Puri", "Dahi Puri", "Samosa", "Aloo Tikki Chaat",
           "Bread Rolls", "Paneer Pakora", "Onion Pakora", "Mixed Pakora", "Pav Bhaji",
           "Dahi Kebab", "Veg Galouti Kebab", "Hara Bhara Kebab", "Sabudana Vada", "Masala Papad",
-          "Cheese Corn Toast", "Jalapeño Cheese Poppers", "Monaco Creamy Yogurt Bites", "Mango Salsa", "Guacamole & Chips",
+          "Cheese Corn Toast", "Monaco Creamy Yogurt Bites", "Mango Salsa", "Guacamole & Chips",
           "Red Sauce Pasta", "Tomato Soup"
         ]}
+      ]
+    },
+    {
+      id: "indo-western",
+      title: "Indo-Western",
+      icon: "🌯",
+      groups: [
+        { name: "", items: ["Moonglet", "Jalapeño Cheese Poppers"] }
       ]
     },
     {
@@ -740,7 +748,7 @@
     main: MENU.find(s => s.id === "main").groups.flatMap(g => g.items),
     breads: MENU.find(s => s.id === "breads").groups.flatMap(g => g.items),
     rice: MENU.find(s => s.id === "rice").groups.flatMap(g => g.items),
-    appetizers: MENU.find(s => s.id === "appetizers").groups.flatMap(g => g.items),
+    appetizers: ["appetizers", "indo-western"].flatMap(id => MENU.find(s => s.id === id).groups.flatMap(g => g.items)),
     mithai: MENU.find(s => s.id === "mithai").groups.flatMap(g => g.items),
     beverages: MENU.find(s => s.id === "beverages").groups.flatMap(g => g.items),
     namkeen: MENU.find(s => s.id === "namkeen").groups.flatMap(g => g.items),
