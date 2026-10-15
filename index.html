@@ -730,6 +730,9 @@
   .welcome-top .welcome-text .w1 { font-size: clamp(1.2rem, 2.8vw, 1.9rem); }
   .welcome-top .welcome-text .w2 { font-size: clamp(0.95rem, 2vw, 1.3rem); }
   @media (max-width: 720px) { .welcome-top { top: 12px; } .welcome-top .welcome-card { height: 120px; } }
+  /* motto banner: text only, burgundy and gold */
+  .welcome-top .welcome-card { background: #6b1d2a radial-gradient(rgba(240,199,115,0.18) 1.2px, transparent 1.4px) 0 0 / 18px 18px; border-color: #f0c773; }
+  .welcome-top .welcome-card::after { background: none; }
 </style>
 </head>
 <body>
@@ -747,7 +750,6 @@
   <div class="cover">
     <div class="welcome-top">
       <div class="welcome-card">
-        <img src="images/lucknow-welcome.jpg" alt="Lucknow skyline with white domes and a clock tower">
         <p class="welcome-text"><span class="w1">Muskuraiye aap</span><span class="w2">Nupur ki site mein hain</span></p>
       </div>
     </div>
@@ -768,15 +770,6 @@
 
 <main>
   <div id="top"></div>
-  <section class="deewani" aria-labelledby="deewani-title">
-    <h2 class="sec-h" id="deewani-title">Deewani mastaani</h2>
-    <p class="deewani-sub">The Lucknow that inspires every dish.</p>
-    <div class="deewani-grid">
-      <figure><img src="images/lucknow/gate.jpg" alt="An arched gateway in Lucknow framing a street and a white mosque" loading="lazy"></figure>
-      <figure><img src="images/lucknow/asfi-clean.jpg" alt="Domes and minarets of a Lucknow monument" loading="lazy"></figure>
-      <figure><img src="images/lucknow/sunset.jpg" alt="A Lucknow monument with minarets under a pink evening sky" loading="lazy"></figure>
-    </div>
-  </section>
   <section class="home-pick" id="pick" aria-label="Kya banau">
     <div class="wizard" id="wizard" aria-live="polite"></div>
   </section>
@@ -1167,7 +1160,7 @@
   }
 
   // Pinterest-style: each card gets its own height, picked from a few shapes by its name.
-  const CARD_SHAPES = [1, 1.15, 0.95, 1.25, 1.05];
+  const CARD_SHAPES = [0.8, 1.45, 1, 1.9, 1.25, 0.65];
 
   function dishPhoto(name, extraClass) {
     const wrap = document.createElement("span");
