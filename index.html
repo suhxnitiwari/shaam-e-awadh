@@ -1245,7 +1245,7 @@
     if (action) {
       const name = action.dataset.action;
       if (name === "decide") {
-        const pickFrom = ["main", "appetizers", "mithai", "beverages"];
+        const pickFrom = ["main", "appetizers"];
         const craving = pickFrom[Math.floor(Math.random() * pickFrom.length)];
         state = { craving, side: craving === "main" ? "either" : null };
         result = null;
