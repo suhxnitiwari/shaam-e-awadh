@@ -688,6 +688,14 @@
     .cover-text { bottom: 16%; }
     .pill { padding: 11px 18px; font-size: 0.72rem; }
   }
+  /* Family Favorites: equal tall photo tiles */
+  .fav-card .thumb { flex: none !important; width: 100% !important; height: auto !important; aspect-ratio: 4 / 5 !important; max-height: none !important; border: none; margin: 0; border-radius: 0; display: block; }
+  .fav-card .thumb img { width: 100% !important; height: 100% !important; object-fit: cover; display: block; }
+  .fav-card .thumb.no-photo { display: flex; }
+  /* keep the full-width cover from causing a sideways scrollbar, and center its text */
+  html, body { overflow-x: hidden; }
+  header.hero .cover .cover-text .intro, header.hero .cover p.intro { text-align: center !important; margin: 0 auto !important; }
+  header.hero .cover .tagline { text-align: center !important; }
 </style>
 </head>
 <body>
