@@ -542,16 +542,54 @@
     .tab { padding: 9px 16px; }
     .pick-dish { font-size: 1.9rem; }
   }
+  /* one-page layout */
+  section[id], div[id="top"] { scroll-margin-top: 70px; }
+  .tab { text-decoration: none; }
+  .tab:focus:not(:focus-visible), .brand:focus:not(:focus-visible) { outline: none; }
+  .sec-h { text-align: center; margin: 44px 0 16px; }
+  .home-pick { margin-top: 8px; }
+  .chef-section { margin: 40px auto 0; max-width: 760px; }
+  .chef-section .chef img { display: block; width: 100%; max-height: 360px; object-fit: cover; border-radius: 12px; margin-bottom: 16px; }
+  .fav-card { padding: 0 0 10px; overflow: hidden; }
+  .fav-card .thumb { border-radius: 0; width: 100%; margin: 0; border: none; }
+  .fav-card .thumb img { width: 100%; height: auto; display: block; }
+  .fav-card .thumb.no-photo { font-size: 2.4rem; }
+  .fav-name { display: block; padding: 8px 10px 0; text-align: center; }
+  /* Pinterest-style wall for the whole menu */
+  ol.wall {
+    list-style: none; margin: 0 auto; padding: 0;
+    max-width: 1100px;
+    columns: 210px auto;
+    column-gap: 14px;
+  }
+  ol.wall > li { display: block; break-inside: avoid; margin: 0 0 14px; }
+  ol.wall > li.sec-head {
+    column-span: all; break-inside: avoid;
+    margin: 36px 0 14px; text-align: center;
+  }
+  ol.wall > li.sec-head h2 { margin: 0; }
+  ol.wall > li.sec-head .count { color: #6b5c55; font-size: .9rem; }
+  ol.wall > li.group-head {
+    column-span: all; break-after: avoid;
+    margin: 18px 0 10px; font-weight: 600; color: #652F3A;
+  }
+  ol.wall > li.dish {
+    background: var(--paper); border: 1px solid var(--line);
+    border-radius: 14px; overflow: hidden;
+  }
+  ol.wall > li.dish.hidden, ol.wall > li.group-head.hidden, ol.wall > li.sec-head.hidden { display: none !important; }
+  ol.wall .thumb { border-radius: 0; border: none; margin: 0; width: 100%; }
+  ol.wall .caption { padding: 8px 10px 10px; }
 </style>
 </head>
 <body>
 
 <nav class="tabs" aria-label="Site sections">
-  <span class="brand">Shaam-e-Awadh</span>
-  <div class="tab-group" role="tablist">
-    <button class="tab" id="tab-pick" role="tab" aria-selected="true" aria-controls="panel-pick" data-tab="pick" type="button">Home</button>
-    <button class="tab" id="tab-menu" role="tab" aria-selected="false" aria-controls="panel-menu" data-tab="menu" type="button">Full menu</button>
-    <button class="tab" id="tab-chef" role="tab" aria-selected="false" aria-controls="panel-chef" data-tab="chef" type="button">About the Chef</button>
+  <a class="brand" href="#top">Shaam-e-Awadh</a>
+  <div class="tab-group">
+    <a class="tab" href="#top">Home</a>
+    <a class="tab" href="#menu-section">Full menu</a>
+    <a class="tab" href="#chef">About the Chef</a>
   </div>
 </nav>
 
@@ -562,44 +600,26 @@
 </header>
 
 <main>
-
-  <!-- Tab 1: Kuch Bhi wizard -->
-  <div id="panel-pick" role="tabpanel" aria-labelledby="tab-pick">
+  <div id="top"></div>
+  <section class="home-pick" aria-label="Kya banau">
     <div class="wizard" id="wizard" aria-live="polite"></div>
+  </section>
 
-    <section class="favorites" aria-labelledby="fav-title">
-      <h2 id="fav-title">Family Favorites</h2>
-      <p class="fav-sub">The ones everyone asks for.</p>
-      <div class="fav-grid">
-        <div class="fav-card">Matar Paneer</div>
-        <div class="fav-card">Chole</div>
-        <div class="fav-card">Rajma</div>
-        <div class="fav-card">Pav Bhaji</div>
-      </div>
-    </section>
+  <section class="favorites" aria-labelledby="fav-title">
+    <h2 id="fav-title">Family Favorites</h2>
+    <p class="fav-sub">The ones everyone asks for.</p>
+    <div class="fav-grid" id="fav-grid"></div>
+  </section>
 
-    <div class="teasers">
-      <button class="teaser" type="button" data-go="menu">
-        <span class="teaser-title">Browse the full menu</span>
-        <span class="teaser-sub">Every dish, grouped and searchable</span>
-      </button>
-      <button class="teaser" type="button" data-go="chef">
-        <span class="teaser-title">Meet Nupur</span>
-        <span class="teaser-sub">The cook behind the recipes</span>
-      </button>
-    </div>
-  </div>
-
-  <!-- Tab 2: Full menu -->
-  <div id="panel-menu" role="tabpanel" aria-labelledby="tab-menu" class="hidden">
+  <section class="full-menu" id="menu-section" aria-labelledby="menu-title">
+    <h2 class="sec-h" id="menu-title">Full menu</h2>
     <input class="search" id="search" type="search" placeholder="Search a dish, like paneer or chaat" aria-label="Search dishes">
     <nav class="jump" id="jump"></nav>
-    <div id="menu"></div>
+    <ol class="wall" id="menu"></ol>
     <div class="empty hidden" id="empty">No dishes match that search.</div>
-  </div>
+  </section>
 
-  <!-- Tab 3: About the chef -->
-  <div id="panel-chef" role="tabpanel" aria-labelledby="tab-chef" class="hidden">
+  <section class="chef-section" id="chef" aria-label="About the chef">
     <article class="chef">
       <img src="images/mumma-kitchen.jpg" alt="Nupur in her kitchen, stuffing cucumber cups" loading="lazy">
       <h2>Meet Nupur</h2>
@@ -607,7 +627,7 @@
       <p>Her favorite thing to make is chole bhature.</p>
       <p>She's also tired of hearing "kuch bhi" every time she asks what to make. So this site gives her a real answer: pick a dish yourself, or let the Kya banau? button pick for you.</p>
     </article>
-  </div>
+  </section>
 </main>
 
 <footer class="site-footer">
@@ -725,28 +745,6 @@
       ]
     }
   ];
-
-  // ---------- Tabs ----------
-  document.querySelectorAll(".teaser[data-go]").forEach(btn => {
-    btn.addEventListener("click", () => {
-      document.getElementById(`tab-${btn.dataset.go}`).click();
-      window.scrollTo({ top: 0, behavior: "smooth" });
-    });
-  });
-
-  const tabs = document.querySelectorAll(".tab");
-  const panels = {
-    pick: document.getElementById("panel-pick"),
-    menu: document.getElementById("panel-menu"),
-    chef: document.getElementById("panel-chef")
-  };
-  tabs.forEach(tab => {
-    tab.addEventListener("click", () => {
-      const name = tab.dataset.tab;
-      tabs.forEach(t => t.setAttribute("aria-selected", t === tab ? "true" : "false"));
-      Object.entries(panels).forEach(([key, el]) => el.classList.toggle("hidden", key !== name));
-    });
-  });
 
   // ---------- Dish pools ----------
   const pools = {
@@ -915,12 +913,12 @@
 
   renderWizard();
 
-  // ---------- Full menu ----------
+  // ---------- Full menu: one Pinterest-style masonry wall ----------
   const menuEl = document.getElementById("menu");
   const jumpEl = document.getElementById("jump");
   const searchEl = document.getElementById("search");
   const emptyEl = document.getElementById("empty");
-  const allGroups = [];
+  const sectionsIdx = [];
   let counter = 0;
 
   MENU.forEach(sec => {
@@ -931,25 +929,26 @@
     link.textContent = sec.title;
     jumpEl.appendChild(link);
 
-    const sectionEl = document.createElement("section");
-    sectionEl.className = "cat";
-    sectionEl.id = sec.id;
-    sectionEl.innerHTML = `<h2>${sec.icon} ${sec.title}</h2><div class="count">${count} dishes</div>`;
+    const head = document.createElement("li");
+    head.className = "sec-head";
+    head.id = sec.id;
+    head.innerHTML = `<h2>${sec.icon} ${sec.title}</h2><div class="count">${count} dishes</div>`;
+    menuEl.appendChild(head);
 
+    const groups = [];
     sec.groups.forEach(group => {
-      let heading = null;
+      let gh = null;
       if (group.name) {
-        heading = document.createElement("h3");
-        heading.className = "group";
-        heading.textContent = `${group.name} (${group.items.length})`;
-        sectionEl.appendChild(heading);
+        gh = document.createElement("li");
+        gh.className = "group-head";
+        gh.textContent = `${group.name} (${group.items.length})`;
+        menuEl.appendChild(gh);
       }
-
-      const list = document.createElement("ol");
-      list.className = "dishes";
+      const dishes = [];
       group.items.forEach(item => {
         counter += 1;
         const li = document.createElement("li");
+        li.className = "dish";
         li.dataset.name = item.toLowerCase();
         const label = document.createElement("span");
         label.className = "dish-name";
@@ -958,33 +957,45 @@
         caption.className = "caption";
         caption.append(label);
         li.append(dishPhoto(item, "thumb"), caption);
-        list.appendChild(li);
+        menuEl.appendChild(li);
+        dishes.push(li);
       });
-      sectionEl.appendChild(list);
-      allGroups.push({ heading, list, sectionEl });
+      groups.push({ gh, dishes });
     });
-
-    menuEl.appendChild(sectionEl);
+    sectionsIdx.push({ head, groups });
   });
 
   searchEl.addEventListener("input", () => {
     const q = searchEl.value.trim().toLowerCase();
     let anyVisible = false;
-
-    allGroups.forEach(({ heading, list, sectionEl }) => {
-      let groupVisible = 0;
-      list.querySelectorAll("li").forEach(li => {
-        const show = !q || li.dataset.name.includes(q);
-        li.classList.toggle("hidden", !show);
-        if (show) groupVisible += 1;
+    sectionsIdx.forEach(({ head, groups }) => {
+      let secVisible = 0;
+      groups.forEach(({ gh, dishes }) => {
+        let groupVisible = 0;
+        dishes.forEach(li => {
+          const show = !q || li.dataset.name.includes(q);
+          li.classList.toggle("hidden", !show);
+          if (show) groupVisible += 1;
+        });
+        if (gh) gh.classList.toggle("hidden", groupVisible === 0);
+        secVisible += groupVisible;
       });
-      list.classList.toggle("hidden", groupVisible === 0);
-      if (heading) heading.classList.toggle("hidden", groupVisible === 0);
-      sectionEl.classList.toggle("hidden", groupVisible === 0);
-      if (groupVisible > 0) anyVisible = true;
+      head.classList.toggle("hidden", secVisible === 0);
+      if (secVisible > 0) anyVisible = true;
     });
-
     emptyEl.classList.toggle("hidden", anyVisible);
+  });
+
+  // ---------- Family favorites (with photos) ----------
+  const favGrid = document.getElementById("fav-grid");
+  ["Matar Paneer", "Chole", "Rajma", "Pav Bhaji"].forEach(name => {
+    const card = document.createElement("div");
+    card.className = "fav-card";
+    const label = document.createElement("span");
+    label.className = "fav-name";
+    label.textContent = name;
+    card.append(dishPhoto(name, "thumb"), label);
+    favGrid.appendChild(card);
   });
 </script>
 </body>
