@@ -822,6 +822,9 @@
   .foot-banner .fb1 { font-style: italic; }
   .foot-banner .fb1::after { content: "  ·  "; font-style: normal; }
   .foot-banner .fb2 { text-transform: uppercase; letter-spacing: 0.12em; font-weight: 700; font-size: 0.75rem; }
+  /* Meet Nupur photo: fixed, shorter frame with her face kept in view */
+  .chef-section .chef > img { width: 100% !important; height: 440px !important; max-height: 440px !important; object-fit: cover !important; object-position: 50% 15% !important; }
+  @media (max-width: 720px) { .chef-section .chef > img { height: 360px !important; max-height: 360px !important; } }
 </style>
 </head>
 <body>
@@ -874,7 +877,7 @@
 
   <section class="chef-section" id="chef" aria-label="About the chef">
     <article class="chef">
-      <img src="images/mumma-kitchen.jpg" alt="Nupur in her kitchen, stuffing cucumber cups" loading="lazy">
+      <img src="images/nupur-meet.jpg" alt="Nupur smiling in her kitchen, with a pot on the stove" loading="lazy">
       <h2>Meet Nupur</h2>
       <p>Nupur was born in Lucknow, Uttar Pradesh, and has been cooking since she got married at 21. Everything on this menu comes from her kitchen, and most of it from memory. Her kitchen is fully vegetarian.</p>
       <p>Her favorite thing to make is chole bhature.</p>
