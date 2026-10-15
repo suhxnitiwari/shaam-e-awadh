@@ -744,6 +744,21 @@
   .favorites h2::before, .chef-section h2::before, #menu-title::before { margin: 0 0 8px; }
   .favorites h2, .chef-section h2 { margin-top: 10px; }
   .team h2::before { display: none; }
+  /* team carousel: one fixed frame, so the size never changes between photos */
+  .carousel .slides { position: relative; height: 560px; }
+  .carousel .slide { position: absolute; inset: 0; display: none; flex-direction: column; margin: 0; }
+  .carousel .slide.active { display: flex; }
+  .carousel .slide img { flex: 1 1 0 !important; height: 0 !important; min-height: 0 !important; width: 100% !important; max-height: none !important; object-fit: cover !important; border-radius: 6px; }
+  .carousel .slide figcaption { flex: 0 0 auto; min-height: 58px; padding-top: 10px; }
+  @media (max-width: 720px) { .carousel .slides { height: 440px; } }
+
+  /* team carousel: plain chevrons on the photo edges */
+  .team-card .slides { position: relative; }
+  .car-arrow { position: absolute; top: 40%; transform: translateY(-50%); z-index: 2; background: none; border: 0; padding: 4px 12px; color: #fff; font-size: 3rem; line-height: 1; cursor: pointer; text-shadow: 0 1px 8px rgba(0,0,0,0.45); }
+  .car-prev { left: 4px; }
+  .car-next { right: 4px; }
+  .car-arrow:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; border-radius: 4px; }
+  .car-controls, .car-count { display: none; }
 </style>
 </head>
 <body>
@@ -833,11 +848,8 @@
           <img src="images/tasters.jpg" alt="Two girls sipping iced coffee through straws in a kitchen" loading="lazy">
           <figcaption><strong>Her tasters.</strong> They give feedback on every batch and help her improve over multiple rounds. Here they are hard at work, master-tasting her cold coffee.</figcaption>
         </figure>
-      </div>
-      <div class="car-controls">
-        <button class="car-btn car-prev" type="button" aria-label="Previous photo">&#8249;</button>
-        <span class="car-count" aria-live="polite">1 of 3</span>
-        <button class="car-btn car-next" type="button" aria-label="Next photo">&#8250;</button>
+        <button class="car-arrow car-prev" type="button" aria-label="Previous photo">&lsaquo;</button>
+        <button class="car-arrow car-next" type="button" aria-label="Next photo">&rsaquo;</button>
       </div>
     </div>
   </section>
@@ -1205,7 +1217,7 @@
     function show(n) {
       i = (n + slides.length) % slides.length;
       slides.forEach((el, k) => el.classList.toggle("active", k === i));
-      count.textContent = `${i + 1} of ${slides.length}`;
+      if (count) count.textContent = `${i + 1} of ${slides.length}`;
     }
     show(0);
     root.querySelector(".car-prev").addEventListener("click", () => show(i - 1));
