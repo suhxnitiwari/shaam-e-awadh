@@ -616,6 +616,10 @@
   .tasters { margin: 28px 0 0; }
   .tasters img { display: block; width: 100%; max-height: 420px; object-fit: cover; border-radius: 10px; }
   .tasters figcaption { margin-top: 10px; color: var(--muted); font-size: 0.95rem; text-align: left; }
+  .team { max-width: 100%; }
+  .team-card { margin: 0; border: 1px solid #DCBDB6; border-radius: 10px; box-shadow: 0 1px 3px rgba(30, 16, 10, 0.10); padding: 16px; background: var(--paper); }
+  .team-card img { display: block; width: 100%; max-height: 420px; object-fit: cover; border-radius: 6px; }
+  .team-card figcaption { margin-top: 10px; color: var(--ink); font-size: 1rem; text-align: left; }
 </style>
 </head>
 <body>
@@ -679,6 +683,16 @@
         </figcaption>
       </figure>
     </article>
+  </section>
+
+  <section class="team" id="team" aria-labelledby="team-title">
+    <h2 class="sec-h" id="team-title">Meet the team</h2>
+    <figure class="team-card">
+      <img src="images/team-amaira.jpg" alt="Amaira in a blue princess dress, stirring a pot on the stove" loading="lazy">
+      <figcaption>
+        <strong>Amaira</strong>, Mumma's assistant. She keeps an eye on the pot and helps in the kitchen.
+      </figcaption>
+    </figure>
   </section>
 </main>
 
