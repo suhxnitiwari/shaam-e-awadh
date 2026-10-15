@@ -161,6 +161,57 @@
     font-size: 0.85rem;
     padding: 10px 20px 36px;
   }
+  .picker {
+    text-align: center;
+    background: var(--paper);
+    border: 1px solid var(--line);
+    border-radius: 16px;
+    padding: 26px 20px;
+    margin-bottom: 28px;
+  }
+  .picker-btn {
+    background: var(--saffron);
+    color: var(--paper);
+    border: none;
+    border-radius: 999px;
+    padding: 14px 30px;
+    font: inherit;
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    box-shadow: 0 4px 14px rgba(184, 122, 20, 0.3);
+  }
+  .picker-btn:hover { background: #a06a10; }
+  .picker-btn:focus-visible { outline: 3px solid var(--gold); outline-offset: 3px; }
+  .pick-result {
+    margin-top: 18px;
+    min-height: 1.5em;
+  }
+  .pick-label {
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--muted);
+  }
+  .pick-dish {
+    font-family: "Cormorant Garamond", serif;
+    font-size: 2.2rem;
+    color: var(--maroon);
+    margin: 4px 0 0;
+    font-weight: 700;
+  }
+  .pick-again {
+    margin-top: 12px;
+    background: none;
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    padding: 6px 16px;
+    font: inherit;
+    font-size: 0.9rem;
+    color: var(--maroon);
+    cursor: pointer;
+  }
+  .pick-again:hover { border-color: var(--saffron); }
   @media (max-width: 480px) {
     section.cat { padding: 18px; }
     ol.dishes { grid-template-columns: 1fr; }
@@ -177,6 +228,10 @@
 </header>
 
 <main>
+  <div class="picker">
+    <button class="picker-btn" id="pick-btn" type="button">What should we make today?</button>
+    <div class="pick-result" id="pick-result" aria-live="polite"></div>
+  </div>
   <input class="search" id="search" type="search" placeholder="Search a dish, like paneer or chaat" aria-label="Search dishes">
   <nav class="jump" id="jump"></nav>
   <div id="menu"></div>
@@ -342,6 +397,28 @@
 
     menuEl.appendChild(sectionEl);
   });
+
+  // "What should we make today?" picker: random main course dish, never the same one twice in a row.
+  const mainDishes = MENU.find(s => s.id === "main").groups.flatMap(g => g.items);
+  const pickBtn = document.getElementById("pick-btn");
+  const pickResult = document.getElementById("pick-result");
+  let lastPick = null;
+
+  function pickDish() {
+    let choice;
+    do {
+      choice = mainDishes[Math.floor(Math.random() * mainDishes.length)];
+    } while (mainDishes.length > 1 && choice === lastPick);
+    lastPick = choice;
+    pickResult.innerHTML = `
+      <div class="pick-label">Tonight's pick</div>
+      <div class="pick-dish"></div>
+      <button class="pick-again" type="button">Pick another</button>`;
+    pickResult.querySelector(".pick-dish").textContent = choice;
+    pickResult.querySelector(".pick-again").addEventListener("click", pickDish);
+  }
+
+  pickBtn.addEventListener("click", pickDish);
 
   searchEl.addEventListener("input", () => {
     const q = searchEl.value.trim().toLowerCase();
