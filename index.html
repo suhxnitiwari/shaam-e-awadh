@@ -71,6 +71,118 @@
     margin: 0 auto;
     padding: 28px 18px 60px;
   }
+
+  /* Tabs */
+  .tabs {
+    display: flex;
+    justify-content: center;
+    gap: 6px;
+    background: var(--paper);
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    padding: 5px;
+    width: fit-content;
+    margin: 0 auto 26px;
+  }
+  .tab {
+    background: none;
+    border: none;
+    border-radius: 999px;
+    padding: 10px 22px;
+    font: inherit;
+    font-weight: 600;
+    color: var(--muted);
+    cursor: pointer;
+  }
+  .tab[aria-selected="true"] {
+    background: var(--maroon);
+    color: var(--paper);
+  }
+  .tab:focus-visible { outline: 3px solid var(--gold); outline-offset: 2px; }
+
+  /* Kuch Bhi wizard */
+  .wizard {
+    text-align: center;
+    background: var(--paper);
+    border: 1px solid var(--line);
+    border-radius: 16px;
+    padding: 30px 20px;
+    margin-bottom: 28px;
+    min-height: 260px;
+  }
+  .wiz-title {
+    font-family: "Cormorant Garamond", serif;
+    color: var(--maroon);
+    font-size: 1.8rem;
+    margin: 0 0 4px;
+  }
+  .wiz-q {
+    font-size: 1.1rem;
+    margin: 14px 0 16px;
+  }
+  .chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: center;
+  }
+  .chip {
+    background: var(--cream);
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    padding: 10px 18px;
+    font: inherit;
+    color: var(--ink);
+    cursor: pointer;
+  }
+  .chip:hover { border-color: var(--saffron); }
+  .chip:focus-visible { outline: 3px solid var(--gold); outline-offset: 2px; }
+  .pick-label {
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--muted);
+    margin-top: 10px;
+  }
+  .pick-dish {
+    font-family: "Cormorant Garamond", serif;
+    font-size: 2.2rem;
+    color: var(--maroon);
+    margin: 4px 0 0;
+    font-weight: 700;
+  }
+  .pick-side {
+    color: var(--muted);
+    margin-top: 2px;
+  }
+  .wiz-actions {
+    margin-top: 18px;
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+  .wiz-btn {
+    background: none;
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    padding: 7px 16px;
+    font: inherit;
+    font-size: 0.9rem;
+    color: var(--maroon);
+    cursor: pointer;
+  }
+  .wiz-btn:hover { border-color: var(--saffron); }
+  .wiz-btn:focus-visible { outline: 3px solid var(--gold); outline-offset: 2px; }
+  .wiz-btn-primary {
+    background: var(--saffron);
+    border-color: var(--saffron);
+    color: var(--paper);
+    font-weight: 600;
+  }
+  .wiz-btn-primary:hover { background: #a06a10; border-color: #a06a10; }
+
+  /* Full menu */
   .search {
     display: block;
     width: 100%;
@@ -161,63 +273,11 @@
     font-size: 0.85rem;
     padding: 10px 20px 36px;
   }
-  .picker {
-    text-align: center;
-    background: var(--paper);
-    border: 1px solid var(--line);
-    border-radius: 16px;
-    padding: 26px 20px;
-    margin-bottom: 28px;
-  }
-  .picker-btn {
-    background: var(--saffron);
-    color: var(--paper);
-    border: none;
-    border-radius: 999px;
-    padding: 14px 30px;
-    font: inherit;
-    font-size: 1.1rem;
-    font-weight: 600;
-    cursor: pointer;
-    box-shadow: 0 4px 14px rgba(184, 122, 20, 0.3);
-  }
-  .picker-btn:hover { background: #a06a10; }
-  .picker-btn + .picker-btn { margin-left: 10px; }
-  .picker-btn-alt { background: var(--maroon); box-shadow: 0 4px 14px rgba(107, 29, 42, 0.3); }
-  .picker-btn-alt:hover { background: #551521; }
-  .picker-btn:focus-visible { outline: 3px solid var(--gold); outline-offset: 3px; }
-  .pick-result {
-    margin-top: 18px;
-    min-height: 1.5em;
-  }
-  .pick-label {
-    font-size: 0.8rem;
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
-    color: var(--muted);
-  }
-  .pick-dish {
-    font-family: "Cormorant Garamond", serif;
-    font-size: 2.2rem;
-    color: var(--maroon);
-    margin: 4px 0 0;
-    font-weight: 700;
-  }
-  .pick-again {
-    margin-top: 12px;
-    background: none;
-    border: 1px solid var(--line);
-    border-radius: 999px;
-    padding: 6px 16px;
-    font: inherit;
-    font-size: 0.9rem;
-    color: var(--maroon);
-    cursor: pointer;
-  }
-  .pick-again:hover { border-color: var(--saffron); }
   @media (max-width: 480px) {
     section.cat { padding: 18px; }
     ol.dishes { grid-template-columns: 1fr; }
+    .tab { padding: 9px 16px; }
+    .pick-dish { font-size: 1.9rem; }
   }
 </style>
 </head>
@@ -231,14 +291,23 @@
 </header>
 
 <main>
-  <div class="picker">
-    <button class="picker-btn" id="pick-btn" type="button">Kya banau? Kuch Bhi!</button>
-    <div class="pick-result" id="pick-result" aria-live="polite"></div>
+  <div class="tabs" role="tablist">
+    <button class="tab" id="tab-pick" role="tab" aria-selected="true" aria-controls="panel-pick" data-tab="pick" type="button">Kuch Bhi</button>
+    <button class="tab" id="tab-menu" role="tab" aria-selected="false" aria-controls="panel-menu" data-tab="menu" type="button">Full menu</button>
   </div>
-  <input class="search" id="search" type="search" placeholder="Search a dish, like paneer or chaat" aria-label="Search dishes">
-  <nav class="jump" id="jump"></nav>
-  <div id="menu"></div>
-  <div class="empty hidden" id="empty">No dishes match that search.</div>
+
+  <!-- Tab 1: Kuch Bhi wizard -->
+  <div id="panel-pick" role="tabpanel" aria-labelledby="tab-pick">
+    <div class="wizard" id="wizard" aria-live="polite"></div>
+  </div>
+
+  <!-- Tab 2: Full menu -->
+  <div id="panel-menu" role="tabpanel" aria-labelledby="tab-menu" class="hidden">
+    <input class="search" id="search" type="search" placeholder="Search a dish, like paneer or chaat" aria-label="Search dishes">
+    <nav class="jump" id="jump"></nav>
+    <div id="menu"></div>
+    <div class="empty hidden" id="empty">No dishes match that search.</div>
+  </div>
 </main>
 
 <footer>Shaam-e-Awadh. Made by Nupur with love for her family.</footer>
@@ -344,21 +413,157 @@
     }
   ];
 
-  const menuEl = document.getElementById("menu");
-  const jumpEl = document.getElementById("jump");
+  // ---------- Header stats ----------
   const statsEl = document.getElementById("stats");
-  const searchEl = document.getElementById("search");
-  const emptyEl = document.getElementById("empty");
-
-  const allGroups = [];   // { heading, list, sectionEl }
-  let counter = 0;
   const totalDishes = MENU.reduce((sum, sec) => sum + sec.groups.reduce((a, g) => a + g.items.length, 0), 0);
   const mainCount = MENU.find(s => s.id === "main").groups.reduce((a, g) => a + g.items.length, 0);
-
   statsEl.innerHTML = `
     <span class="stat">${totalDishes} dishes</span>
     <span class="stat">${mainCount} main course options</span>
     <span class="stat">${MENU.length} categories</span>`;
+
+  // ---------- Tabs ----------
+  const tabs = document.querySelectorAll(".tab");
+  const panels = { pick: document.getElementById("panel-pick"), menu: document.getElementById("panel-menu") };
+  tabs.forEach(tab => {
+    tab.addEventListener("click", () => {
+      const name = tab.dataset.tab;
+      tabs.forEach(t => t.setAttribute("aria-selected", t === tab ? "true" : "false"));
+      Object.entries(panels).forEach(([key, el]) => el.classList.toggle("hidden", key !== name));
+    });
+  });
+
+  // ---------- Dish pools ----------
+  const pools = {
+    main: MENU.find(s => s.id === "main").groups.flatMap(g => g.items),
+    breads: MENU.find(s => s.id === "breads").groups.flatMap(g => g.items),
+    rice: MENU.find(s => s.id === "rice").groups.flatMap(g => g.items),
+    appetizers: MENU.find(s => s.id === "appetizers").groups.flatMap(g => g.items),
+    mithai: MENU.find(s => s.id === "mithai").groups.flatMap(g => g.items),
+    beverages: MENU.find(s => s.id === "beverages").groups.flatMap(g => g.items),
+    namkeen: MENU.find(s => s.id === "namkeen").groups.flatMap(g => g.items),
+    any: MENU.flatMap(s => s.groups.flatMap(g => g.items))
+  };
+
+  function pickOne(pool, avoid) {
+    let choice;
+    do {
+      choice = pool[Math.floor(Math.random() * pool.length)];
+    } while (pool.length > 1 && choice === avoid);
+    return choice;
+  }
+
+  // ---------- Kuch Bhi wizard ----------
+  const wizardEl = document.getElementById("wizard");
+  let state = { craving: null, side: null };
+  let result = null;
+
+  const CRAVINGS = [
+    ["main", "Main course"],
+    ["appetizers", "Appetizer or chaat"],
+    ["mithai", "Dessert"],
+    ["beverages", "Drink"],
+    ["namkeen", "Namkeen"],
+    ["any", "Kuch bhi, surprise me"]
+  ];
+  const SIDES = [
+    ["rice", "Rice"],
+    ["breads", "Roti or paratha"],
+    ["either", "Either, surprise me"]
+  ];
+
+  function chips(attr, options) {
+    return `<div class="chips">${options.map(([v, l]) =>
+      `<button class="chip" type="button" data-${attr}="${v}">${l}</button>`).join("")}</div>`;
+  }
+
+  function renderWizard() {
+    if (!state.craving) {
+      wizardEl.innerHTML = `
+        <h2 class="wiz-title">Kya banau?</h2>
+        <p class="wiz-q">What are we in the mood for?</p>
+        ${chips("craving", CRAVINGS)}`;
+      return;
+    }
+    if (state.craving === "main" && !state.side) {
+      wizardEl.innerHTML = `
+        <h2 class="wiz-title">Kya banau?</h2>
+        <p class="wiz-q">Rice or roti with it?</p>
+        ${chips("side", SIDES)}
+        <div class="wiz-actions"><button class="wiz-btn" type="button" data-action="back">Back</button></div>`;
+      return;
+    }
+    showResult();
+  }
+
+  function showResult() {
+    if (state.craving === "main") {
+      const dish = pickOne(pools.main, result && result.dish);
+      let sideKind = state.side;
+      if (sideKind === "either") sideKind = Math.random() < 0.5 ? "rice" : "breads";
+      const sidePool = sideKind === "rice" ? pools.rice : pools.breads;
+      const side = pickOne(sidePool, result && result.side);
+      result = { dish, side };
+      wizardEl.innerHTML = `
+        <h2 class="wiz-title">Kya banau?</h2>
+        <div class="pick-label">Tonight's plate</div>
+        <div class="pick-dish"></div>
+        <div class="pick-side">with <span class="side-name"></span></div>
+        ${resultActions()}`;
+      wizardEl.querySelector(".pick-dish").textContent = dish;
+      wizardEl.querySelector(".side-name").textContent = side;
+    } else {
+      const pool = pools[state.craving];
+      const dish = pickOne(pool, result && result.dish);
+      result = { dish };
+      wizardEl.innerHTML = `
+        <h2 class="wiz-title">Kya banau?</h2>
+        <div class="pick-label">Tonight's pick</div>
+        <div class="pick-dish"></div>
+        ${resultActions()}`;
+      wizardEl.querySelector(".pick-dish").textContent = dish;
+    }
+  }
+
+  function resultActions() {
+    return `
+      <div class="wiz-actions">
+        <button class="wiz-btn wiz-btn-primary" type="button" data-action="again">Pick another</button>
+        <button class="wiz-btn" type="button" data-action="restart">Start over</button>
+      </div>`;
+  }
+
+  wizardEl.addEventListener("click", e => {
+    const chip = e.target.closest(".chip");
+    const action = e.target.closest("[data-action]");
+    if (chip) {
+      if (chip.dataset.craving) {
+        state = { craving: chip.dataset.craving, side: null };
+        result = null;
+      } else if (chip.dataset.side) {
+        state.side = chip.dataset.side;
+        result = null;
+      }
+      renderWizard();
+      return;
+    }
+    if (action) {
+      const name = action.dataset.action;
+      if (name === "again") showResult();
+      if (name === "restart") { state = { craving: null, side: null }; result = null; renderWizard(); }
+      if (name === "back") { state = { craving: null, side: null }; result = null; renderWizard(); }
+    }
+  });
+
+  renderWizard();
+
+  // ---------- Full menu ----------
+  const menuEl = document.getElementById("menu");
+  const jumpEl = document.getElementById("jump");
+  const searchEl = document.getElementById("search");
+  const emptyEl = document.getElementById("empty");
+  const allGroups = [];
+  let counter = 0;
 
   MENU.forEach(sec => {
     const count = sec.groups.reduce((a, g) => a + g.items.length, 0);
@@ -400,29 +605,6 @@
 
     menuEl.appendChild(sectionEl);
   });
-
-  // "What should we make today?" picker: random main course dish, never the same one twice in a row.
-  // "Kuch Bhi" picks from the whole menu, so anything can come up.
-  const allDishes = MENU.flatMap(s => s.groups.flatMap(g => g.items));
-  const pickBtn = document.getElementById("pick-btn");
-  const pickResult = document.getElementById("pick-result");
-  let lastPick = null;
-
-  function showPick() {
-    let choice;
-    do {
-      choice = allDishes[Math.floor(Math.random() * allDishes.length)];
-    } while (allDishes.length > 1 && choice === lastPick);
-    lastPick = choice;
-    pickResult.innerHTML = `
-      <div class="pick-label">Tonight's pick</div>
-      <div class="pick-dish"></div>
-      <button class="pick-again" type="button">Pick another</button>`;
-    pickResult.querySelector(".pick-dish").textContent = choice;
-    pickResult.querySelector(".pick-again").addEventListener("click", showPick);
-  }
-
-  pickBtn.addEventListener("click", showPick);
 
   searchEl.addEventListener("input", () => {
     const q = searchEl.value.trim().toLowerCase();
