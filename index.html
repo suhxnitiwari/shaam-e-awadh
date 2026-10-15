@@ -72,6 +72,27 @@
     padding: 28px 18px 60px;
   }
 
+  /* Kitchen photo */
+  .kitchen {
+    margin: 0 auto 30px;
+    max-width: 760px;
+    text-align: center;
+  }
+  .kitchen img {
+    display: block;
+    width: 100%;
+    height: auto;
+    border-radius: 16px;
+    border: 1px solid var(--line);
+  }
+  .kitchen figcaption {
+    font-family: "Cormorant Garamond", serif;
+    font-style: italic;
+    color: var(--muted);
+    margin-top: 8px;
+    font-size: 1.05rem;
+  }
+
   /* Tabs */
   .tabs {
     display: flex;
@@ -291,6 +312,11 @@
 </header>
 
 <main>
+  <figure class="kitchen">
+    <img src="images/mumma-kitchen.jpg" alt="Mumma stuffing cucumber cups in the kitchen, with a little one watching from the counter" loading="lazy">
+    <figcaption>Mumma in the kitchen, stuffing the cucumber cups.</figcaption>
+  </figure>
+
   <div class="tabs" role="tablist">
     <button class="tab" id="tab-pick" role="tab" aria-selected="true" aria-controls="panel-pick" data-tab="pick" type="button">Kuch Bhi</button>
     <button class="tab" id="tab-menu" role="tab" aria-selected="false" aria-controls="panel-menu" data-tab="menu" type="button">Full menu</button>
