@@ -376,19 +376,25 @@
   .search:focus { outline: 2px solid var(--gold); border-color: transparent; }
   .jump {
     display: flex;
-    flex-wrap: wrap;
+    flex-wrap: nowrap;
     gap: 6px;
     justify-content: center;
-    margin-bottom: 18px;
+    overflow-x: auto;
+    margin: 0 -18px 18px;
+    padding: 2px 18px 6px;
+    scrollbar-width: none;
   }
+  .jump::-webkit-scrollbar { display: none; }
   .jump a {
+    flex: 0 0 auto;
+    white-space: nowrap;
     color: var(--maroon);
     text-decoration: none;
     border: 1px solid var(--line);
     background: var(--paper);
     border-radius: 999px;
-    padding: 5px 12px;
-    font-size: 0.88rem;
+    padding: 5px 11px;
+    font-size: 0.82rem;
   }
   .jump a:hover { border-color: var(--saffron); }
   section.cat {
