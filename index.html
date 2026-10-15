@@ -232,8 +232,7 @@
 
 <main>
   <div class="picker">
-    <button class="picker-btn" id="pick-btn" type="button">What should we make today?</button>
-    <button class="picker-btn picker-btn-alt" id="kuch-btn" type="button">Kuch Bhi</button>
+    <button class="picker-btn" id="pick-btn" type="button">Kya banau? Kuch Bhi!</button>
     <div class="pick-result" id="pick-result" aria-live="polite"></div>
   </div>
   <input class="search" id="search" type="search" placeholder="Search a dish, like paneer or chaat" aria-label="Search dishes">
@@ -403,31 +402,27 @@
   });
 
   // "What should we make today?" picker: random main course dish, never the same one twice in a row.
-  // "Kuch Bhi" picks from the whole menu, so any dish can come up.
-  const mainDishes = MENU.find(s => s.id === "main").groups.flatMap(g => g.items);
+  // "Kuch Bhi" picks from the whole menu, so anything can come up.
   const allDishes = MENU.flatMap(s => s.groups.flatMap(g => g.items));
   const pickBtn = document.getElementById("pick-btn");
-  const kuchBtn = document.getElementById("kuch-btn");
   const pickResult = document.getElementById("pick-result");
   let lastPick = null;
 
-  function showPick(pool, label) {
+  function showPick() {
     let choice;
     do {
-      choice = pool[Math.floor(Math.random() * pool.length)];
-    } while (pool.length > 1 && choice === lastPick);
+      choice = allDishes[Math.floor(Math.random() * allDishes.length)];
+    } while (allDishes.length > 1 && choice === lastPick);
     lastPick = choice;
     pickResult.innerHTML = `
-      <div class="pick-label"></div>
+      <div class="pick-label">Tonight's pick</div>
       <div class="pick-dish"></div>
       <button class="pick-again" type="button">Pick another</button>`;
-    pickResult.querySelector(".pick-label").textContent = label;
     pickResult.querySelector(".pick-dish").textContent = choice;
-    pickResult.querySelector(".pick-again").addEventListener("click", () => showPick(pool, label));
+    pickResult.querySelector(".pick-again").addEventListener("click", showPick);
   }
 
-  pickBtn.addEventListener("click", () => showPick(mainDishes, "Tonight's pick"));
-  kuchBtn.addEventListener("click", () => showPick(allDishes, "Kuch bhi"));
+  pickBtn.addEventListener("click", showPick);
 
   searchEl.addEventListener("input", () => {
     const q = searchEl.value.trim().toLowerCase();
