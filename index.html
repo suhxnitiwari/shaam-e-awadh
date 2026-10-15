@@ -862,6 +862,10 @@
   .fav-card:nth-child(3) .thumb img, .fav-card:nth-child(4) .thumb img { transform: scale(1.35); }
   /* no floating dot pattern on the page background */
   body { background-image: none !important; }
+  /* Drinks: one row */
+  ol.wall > li.drinks-row { column-span: all; break-inside: avoid; margin: 0 0 16px; }
+  ol.drinks-inner { display: flex; gap: 16px; list-style: none; margin: 0; padding: 0; }
+  ol.drinks-inner > li.dish { flex: 1 1 0; min-width: 0; margin: 0; }
 </style>
 </head>
 <body>
@@ -1282,6 +1286,18 @@
     head.innerHTML = `<h2>${sec.title}</h2><div class="count">${count} dishes</div>`;
     menuEl.appendChild(head);
 
+    // Drinks sit together in one row
+    let target = menuEl;
+    if (sec.id === "beverages") {
+      const rowLi = document.createElement("li");
+      rowLi.className = "drinks-row";
+      const rowOl = document.createElement("ol");
+      rowOl.className = "drinks-inner";
+      rowLi.appendChild(rowOl);
+      menuEl.appendChild(rowLi);
+      target = rowOl;
+    }
+
     const groups = [];
     sec.groups.forEach(group => {
       let gh = null;
@@ -1304,7 +1320,7 @@
         caption.className = "caption";
         caption.append(label);
         li.append(dishPhoto(item, "thumb"), caption);
-        menuEl.appendChild(li);
+        target.appendChild(li);
         dishes.push(li);
       });
       groups.push({ gh, dishes });
