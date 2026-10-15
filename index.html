@@ -580,6 +580,39 @@
   ol.wall > li.dish.hidden, ol.wall > li.group-head.hidden, ol.wall > li.sec-head.hidden { display: none !important; }
   ol.wall .thumb { border-radius: 0; border: none; margin: 0; width: 100%; }
   ol.wall .caption { padding: 8px 10px 10px; }
+  /* Layout borrowed from suhanitiwari.com: one 1100px column, left-aligned titles,
+     Georgia headings, soft 10px cards and 6px thumbnails, a faint card shadow. */
+  main { max-width: 1100px; margin: 0 auto; padding: 0 16px; width: 100%; box-sizing: border-box; }
+  header.hero { max-width: 1100px; margin: 0 auto; padding: 24px 16px 12px; text-align: left; }
+  .hero-strip { display: grid; grid-template-columns: 1.5fr 1fr 1fr 1fr 1fr; gap: 10px; height: 230px; }
+  .hero-strip img { width: 100%; height: 100%; object-fit: cover; border-radius: 6px; display: block; }
+  .hero-text { padding-top: 26px; }
+  header h1 { font-family: Georgia, serif; font-weight: 800; font-size: 3rem; text-align: left; line-height: 1.15; color: var(--maroon); }
+  .tagline, header p.intro { text-align: left; }
+  .sec-h, .favorites h2, .full-menu h2, .chef-section h2, .wizard h2, .home-pick h2 {
+    font-family: Georgia, serif; font-weight: 700; font-size: 1.8rem; text-align: left; line-height: 1.25; color: #1E100A;
+  }
+  .sec-h { margin: 40px 0 14px; }
+  .fav-sub { text-align: left; }
+  .favorites, .wizard, .chef-section article, .chef-section .chef {
+    border: 1px solid #DCBDB6; border-radius: 10px; box-shadow: 0 1px 3px rgba(30, 16, 10, 0.10);
+  }
+  .fav-card { border-radius: 10px; border: 1px solid #DCBDB6; box-shadow: 0 1px 3px rgba(30, 16, 10, 0.10); }
+  .fav-card .thumb { border-radius: 0; }
+  ol.wall > li.dish { border: 1px solid #DCBDB6; border-radius: 10px; box-shadow: 0 1px 3px rgba(30, 16, 10, 0.10); }
+  ol.wall > li.sec-head { text-align: left; }
+  ol.wall > li.sec-head h2 { font-family: Georgia, serif; font-size: 1.8rem; font-weight: 700; text-align: left; }
+  ol.wall > li.sec-head .count { text-align: left; }
+  .chef-section { max-width: 100%; margin: 48px 0 0; }
+  @media (max-width: 720px) {
+    .hero-strip { grid-template-columns: 1fr 1fr; height: auto; }
+    .hero-strip img { height: 140px; }
+    .hero-strip img:first-child { grid-column: span 2; height: 180px; }
+    header h1 { font-size: 2.2rem; }
+  }
+  header.hero .hero-text { margin-top: 30px; padding-top: 0; }
+  header.hero p.intro { margin: 10px 0 0; max-width: 560px; text-align: left; }
+  header.hero .tagline { margin: 4px 0 0; }
 </style>
 </head>
 <body>
@@ -593,10 +626,19 @@
   </div>
 </nav>
 
-<header>
-  <h1>Shaam-e-Awadh</h1>
-  <div class="tagline">Aaj khaane mein kya banega? Ghar ka khana, Nawabi andaaz mein.</div>
-  <p class="intro">A collection of Nupur's Rasoi's best vegetarian dishes, from everyday home-cooked meals to Lucknowi specialties.</p>
+<header class="hero">
+  <div class="hero-strip" aria-hidden="true">
+    <img src="images/dishes/pani-puri.jpg" alt="">
+    <img src="images/dishes/pav-bhaji.jpg" alt="">
+    <img src="images/dishes/bread-rolls.jpg" alt="">
+    <img src="images/dishes/mixed-pakora.jpg" alt="">
+    <img src="images/dishes/aloo-tikki-chaat.jpg" alt="">
+  </div>
+  <div class="hero-text">
+    <h1>Shaam-e-Awadh</h1>
+    <div class="tagline">Aaj khaane mein kya banega? Ghar ka khana, Nawabi andaaz mein.</div>
+    <p class="intro">A collection of Nupur's Rasoi's best vegetarian dishes, from everyday home-cooked meals to Lucknowi specialties.</p>
+  </div>
 </header>
 
 <main>
@@ -640,111 +682,284 @@
 <script>
   // Edit this list to change the menu. Counts and numbering update automatically.
   const MENU = [
-    {
-      id: "appetizers",
-      title: "Appetizers & Chaat",
-      icon: "🥟",
-      groups: [
-        { name: "", items: [
-          "Pani Puri", "Dahi Puri", "Samosa", "Aloo Tikki Chaat",
-          "Bread Rolls", "Paneer Pakora", "Onion Pakora", "Mixed Pakora", "Pav Bhaji",
-          "Dahi Kebab", "Veg Galouti Kebab", "Hara Bhara Kebab", "Sabudana Vada", "Masala Papad",
-          "Cheese Corn Toast", "Monaco Creamy Yogurt Bites", "Mango Salsa", "Guacamole & Chips",
-          "Red Sauce Pasta", "Tomato Soup"
-        ]}
-      ]
-    },
-    {
-      id: "indo-western",
-      title: "Indo-Western",
-      icon: "🌯",
-      groups: [
-        { name: "", items: ["Moonglet", "Jalapeño Cheese Poppers"] }
-      ]
-    },
-    {
-      id: "main",
-      title: "Main Course",
-      icon: "🍛",
-      groups: [
-        { name: "Paneer Special", items: [
-          "Matar Paneer", "Shahi Paneer", "Palak Paneer", "Paneer Butter Masala", "Paneer Lababdar",
-          "Kadai Paneer", "Paneer Bhurji", "Paneer Tikka Masala", "Paneer Jalfrezi"
-        ]},
-        { name: "Aloo Special", items: [
-          "Aloo Gobi", "Aloo Gobi Matar", "Aloo Pyaz", "Aloo Methi", "Dum Aloo",
-          "Aloo Tamatar", "Masala Aloo", "Banarasi Aloo", "Bari Aloo Matar Tamatar", "Aloo Matar",
-          "Aloo Baingan", "Palak Aloo"
-        ]},
-        { name: "Ghar Ki Sabziyan", items: [
-          "Mixed Vegetables", "Baingan Ka Bharta", "Kaddu Ki Sabzi", "Torai Ki Sabzi", "Lauki Ki Sabzi",
-          "Guar Phali", "French Beans", "Cabbage Ki Sabzi", "Arbi Mumtaz", "Gatte Ki Sabzi",
-          "Nimona (Seasonal)", "Sarson Ka Saag (Seasonal)", "Bhindi Masala", "Gobi Matar", "Veg Jalfrezi"
-        ]},
-        { name: "Kofta & Special Curries", items: [
-          "Zafrani Kofta", "Malai Kofta", "Vegetable Korma", "Navratan Korma", "Methi Matar Malai"
-        ]},
-        { name: "Dal, Chole & Rajma", items: [
-          "Mixed Dal", "Masoor Dal", "Dal Tadka", "Dal Makhani", "Dal Baati",
-          "Dal Palak", "Rajma", "Chole", "Punjabi Kadhi", "Lobia Masala"
-        ]}
-      ]
-    },
-    {
-      id: "breads",
-      title: "Bread",
-      icon: "🫓",
-      groups: [
-        { name: "", items: [
-          "Stuffed Paratha", "Aloo Paratha", "Palak Paratha", "Gobi Paratha", "Mooli Paratha",
-          "Paneer Paratha", "Dal Ki Kachori", "Bedmi Puri", "Sheermal"
-        ]}
-      ]
-    },
-    {
-      id: "rice",
-      title: "Rice & Biryani",
-      icon: "🍚",
-      groups: [
-        { name: "", items: [
-          "Plain Rice", "Jeera Rice", "Matar Rice", "Tehri", "Lucknowi Vegetable Biryani",
-          "Kashmiri Pulao", "Zafrani Pulao"
-        ]}
-      ]
-    },
-    {
-      id: "mithai",
-      title: "Mithai & Desserts",
-      icon: "🍮",
-      groups: [
-        { name: "", items: [
-          "Shahi Tukda", "Gulab Jamun", "Jalebi", "Rabri", "Gajar Ka Halwa",
-          "Malai Kulfi", "Kesar Kulfi", "Kulfi Falooda"
-        ]}
-      ]
-    },
-    {
-      id: "beverages",
-      title: "Beverages",
-      icon: "☕",
-      groups: [
-        { name: "", items: ["Masala Chai", "Mango Lassi", "Latte", "Cold Coffee"] }
-      ]
-    },
-    {
-      id: "namkeen",
-      title: "Namkeen",
-      icon: "🥨",
-      groups: [
-        { name: "", items: [
-          "Aloo Bhujia", "Bikaneri Bhujia", "Ratlami Sev", "Plain Sev", "Khatta Meetha Mixture",
-          "Navratan Mixture", "Dal Moth", "Moong Dal Namkeen", "Chana Dal Namkeen", "Masala Peanuts",
-          "Hing Chana", "Mathri", "Methi Mathri", "Namak Para", "Shakkar Para",
-          "Masala Shankarpali", "Nimki", "Masala Makhana", "Chivda", "Murmura Namkeen"
-        ]}
-      ]
-    }
-  ];
+  {
+    id: "appetizers",
+    title: "Appetizers & Chaat",
+    icon: "🥟",
+    groups: [
+      {
+        name: "Chaat & Street Food",
+        items: [
+          "Pani Puri",
+          "Dahi Puri",
+          "Aloo Tikki Chaat",
+          "Samosa",
+          "Bread Rolls",
+          "Pav Bhaji",
+          "Sabudana Vada",
+          "Masala Papad"
+        ]
+      },
+      {
+        name: "Pakora & Kebabs",
+        items: [
+          "Paneer Pakora",
+          "Onion Pakora",
+          "Mixed Pakora",
+          "Dahi Kebab",
+          "Veg Galouti Kebab",
+          "Hara Bhara Kebab"
+        ]
+      }
+    ]
+  },
+  {
+    id: "indo-western",
+    title: "Indo-Western",
+    icon: "🌯",
+    groups: [
+      {
+        name: "",
+        items: [
+          "Moonglet",
+          "Jalapeño Cheese Poppers",
+          "Cheese Corn Toast",
+          "Red Sauce Pasta",
+          "Guacamole & Chips",
+          "Mango Salsa",
+          "Monaco Creamy Yogurt Bites",
+          "Tomato Soup"
+        ]
+      }
+    ]
+  },
+  {
+    id: "main",
+    title: "Main Course",
+    icon: "🍛",
+    groups: [
+      {
+        name: "Paneer Special",
+        items: [
+          "Matar Paneer",
+          "Shahi Paneer",
+          "Palak Paneer",
+          "Paneer Butter Masala",
+          "Paneer Lababdar",
+          "Kadai Paneer",
+          "Paneer Bhurji",
+          "Paneer Tikka Masala",
+          "Paneer Jalfrezi"
+        ]
+      },
+      {
+        name: "Aloo Special",
+        items: [
+          "Aloo Gobi",
+          "Aloo Gobi Matar",
+          "Aloo Pyaz",
+          "Aloo Methi",
+          "Dum Aloo",
+          "Aloo Tamatar",
+          "Masala Aloo",
+          "Banarasi Aloo",
+          "Bari Aloo Matar Tamatar",
+          "Aloo Matar",
+          "Aloo Baingan",
+          "Palak Aloo"
+        ]
+      },
+      {
+        name: "Ghar Ki Sabziyan",
+        items: [
+          "Mixed Vegetables",
+          "Baingan Ka Bharta",
+          "Kaddu Ki Sabzi",
+          "Torai Ki Sabzi",
+          "Lauki Ki Sabzi",
+          "Guar Phali",
+          "French Beans",
+          "Cabbage Ki Sabzi",
+          "Arbi Mumtaz",
+          "Gatte Ki Sabzi",
+          "Nimona (Seasonal)",
+          "Sarson Ka Saag (Seasonal)",
+          "Bhindi Masala",
+          "Gobi Matar",
+          "Veg Jalfrezi"
+        ]
+      },
+      {
+        name: "Kofta & Special Curries",
+        items: [
+          "Zafrani Kofta",
+          "Malai Kofta",
+          "Vegetable Korma",
+          "Navratan Korma",
+          "Methi Matar Malai"
+        ]
+      },
+      {
+        name: "Dal, Chole & Rajma",
+        items: [
+          "Mixed Dal",
+          "Masoor Dal",
+          "Dal Tadka",
+          "Dal Makhani",
+          "Dal Baati",
+          "Dal Palak",
+          "Rajma",
+          "Chole",
+          "Punjabi Kadhi",
+          "Lobia Masala"
+        ]
+      }
+    ]
+  },
+  {
+    id: "breads",
+    title: "Bread",
+    icon: "🫓",
+    groups: [
+      {
+        name: "Parathas",
+        items: [
+          "Stuffed Paratha",
+          "Aloo Paratha",
+          "Palak Paratha",
+          "Gobi Paratha",
+          "Mooli Paratha",
+          "Paneer Paratha"
+        ]
+      },
+      {
+        name: "Puris & Kachori",
+        items: [
+          "Dal Ki Kachori",
+          "Bedmi Puri"
+        ]
+      },
+      {
+        name: "Sheermal",
+        items: [
+          "Sheermal"
+        ]
+      }
+    ]
+  },
+  {
+    id: "rice",
+    title: "Rice & Biryani",
+    icon: "🍚",
+    groups: [
+      {
+        name: "",
+        items: [
+          "Plain Rice",
+          "Jeera Rice",
+          "Matar Rice",
+          "Tehri",
+          "Lucknowi Vegetable Biryani",
+          "Kashmiri Pulao",
+          "Zafrani Pulao"
+        ]
+      }
+    ]
+  },
+  {
+    id: "namkeen",
+    title: "Namkeen to Take Home",
+    icon: "🥨",
+    groups: [
+      {
+        name: "Bhujia & Sev",
+        items: [
+          "Aloo Bhujia",
+          "Bikaneri Bhujia",
+          "Ratlami Sev",
+          "Plain Sev"
+        ]
+      },
+      {
+        name: "Mixtures",
+        items: [
+          "Khatta Meetha Mixture",
+          "Navratan Mixture",
+          "Chivda",
+          "Murmura Namkeen"
+        ]
+      },
+      {
+        name: "Dal & Nuts",
+        items: [
+          "Dal Moth",
+          "Moong Dal Namkeen",
+          "Chana Dal Namkeen",
+          "Masala Peanuts",
+          "Hing Chana",
+          "Masala Makhana"
+        ]
+      },
+      {
+        name: "Mathri & Para",
+        items: [
+          "Mathri",
+          "Methi Mathri",
+          "Namak Para",
+          "Shakkar Para",
+          "Masala Shankarpali",
+          "Nimki"
+        ]
+      }
+    ]
+  },
+  {
+    id: "mithai",
+    title: "Mithai & Kulfi",
+    icon: "🍮",
+    groups: [
+      {
+        name: "Kulfi",
+        items: [
+          "Malai Kulfi",
+          "Kesar Kulfi",
+          "Kulfi Falooda"
+        ]
+      },
+      {
+        name: "Mithai",
+        items: [
+          "Shahi Tukda",
+          "Gulab Jamun",
+          "Jalebi",
+          "Rabri",
+          "Gajar Ka Halwa"
+        ]
+      }
+    ]
+  },
+  {
+    id: "beverages",
+    title: "Drinks",
+    icon: "🥤",
+    groups: [
+      {
+        name: "Hot",
+        items: [
+          "Masala Chai",
+          "Latte"
+        ]
+      },
+      {
+        name: "Cold",
+        items: [
+          "Mango Lassi",
+          "Cold Coffee"
+        ]
+      }
+    ]
+  }
+];
 
   // ---------- Dish pools ----------
   const pools = {
