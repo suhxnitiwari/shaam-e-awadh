@@ -123,15 +123,17 @@
 
   /* Tabs */
   .tabs {
+    position: sticky;
+    top: 0;
+    z-index: 20;
     display: flex;
     justify-content: center;
+    flex-wrap: wrap;
     gap: 6px;
     background: var(--paper);
-    border: 1px solid var(--line);
-    border-radius: 999px;
-    padding: 5px;
-    width: fit-content;
-    margin: 0 auto 26px;
+    border-bottom: 1px solid var(--line);
+    box-shadow: 0 2px 10px rgba(43, 33, 24, 0.06);
+    padding: 10px 12px;
   }
   .tab {
     background: none;
@@ -375,17 +377,13 @@
   <div class="stats" id="stats"></div>
 </header>
 
-<main>
-  <figure class="kitchen">
-    <img src="images/mumma-kitchen.jpg" alt="Mumma stuffing cucumber cups in the kitchen, with a little one watching from the counter" loading="lazy">
-    <figcaption>Mumma in the kitchen, stuffing the cucumber cups.</figcaption>
-  </figure>
+<nav class="tabs" role="tablist" aria-label="Site sections">
+  <button class="tab" id="tab-pick" role="tab" aria-selected="true" aria-controls="panel-pick" data-tab="pick" type="button">Kuch Bhi</button>
+  <button class="tab" id="tab-menu" role="tab" aria-selected="false" aria-controls="panel-menu" data-tab="menu" type="button">Full menu</button>
+  <button class="tab" id="tab-chef" role="tab" aria-selected="false" aria-controls="panel-chef" data-tab="chef" type="button">About the Chef</button>
+</nav>
 
-  <div class="tabs" role="tablist">
-    <button class="tab" id="tab-pick" role="tab" aria-selected="true" aria-controls="panel-pick" data-tab="pick" type="button">Kuch Bhi</button>
-    <button class="tab" id="tab-menu" role="tab" aria-selected="false" aria-controls="panel-menu" data-tab="menu" type="button">Full menu</button>
-    <button class="tab" id="tab-chef" role="tab" aria-selected="false" aria-controls="panel-chef" data-tab="chef" type="button">About the Chef</button>
-  </div>
+<main>
 
   <!-- Tab 1: Kuch Bhi wizard -->
   <div id="panel-pick" role="tabpanel" aria-labelledby="tab-pick">
