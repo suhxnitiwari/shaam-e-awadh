@@ -231,6 +231,42 @@
   }
   .wiz-btn-primary:hover { background: #a06a10; border-color: #a06a10; }
 
+  /* Family favorites */
+  .favorites {
+    background: var(--paper);
+    border: 1px solid var(--line);
+    border-radius: 16px;
+    padding: 22px 22px 24px;
+    margin-bottom: 26px;
+    text-align: center;
+  }
+  .favorites h2 {
+    font-family: "Cormorant Garamond", serif;
+    color: var(--maroon);
+    font-size: 1.9rem;
+    margin: 0;
+  }
+  .fav-sub {
+    color: var(--muted);
+    margin: 2px 0 16px;
+    font-size: 0.95rem;
+  }
+  .fav-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 10px;
+  }
+  .fav-card {
+    background: var(--cream);
+    border: 1px solid var(--saffron);
+    border-radius: 12px;
+    padding: 14px 12px;
+    font-family: "Cormorant Garamond", serif;
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--maroon);
+  }
+
   /* Full menu */
   .search {
     display: block;
@@ -358,6 +394,16 @@
 
   <!-- Tab 2: Full menu -->
   <div id="panel-menu" role="tabpanel" aria-labelledby="tab-menu" class="hidden">
+    <section class="favorites" aria-labelledby="fav-title">
+      <h2 id="fav-title">Family Favorites</h2>
+      <p class="fav-sub">The ones everyone asks for.</p>
+      <div class="fav-grid">
+        <div class="fav-card">Matar Paneer</div>
+        <div class="fav-card">Chole</div>
+        <div class="fav-card">Rajma</div>
+        <div class="fav-card">Pav Bhaji</div>
+      </div>
+    </section>
     <input class="search" id="search" type="search" placeholder="Search a dish, like paneer or chaat" aria-label="Search dishes">
     <nav class="jump" id="jump"></nav>
     <div id="menu"></div>
