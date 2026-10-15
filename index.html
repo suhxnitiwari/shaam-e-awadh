@@ -620,6 +620,14 @@
   .team-card { margin: 0; border: 1px solid #DCBDB6; border-radius: 10px; box-shadow: 0 1px 3px rgba(30, 16, 10, 0.10); padding: 16px; background: var(--paper); }
   .team-card img { display: block; width: 100%; max-height: 420px; object-fit: cover; border-radius: 6px; }
   .team-card figcaption { margin-top: 10px; color: var(--ink); font-size: 1rem; text-align: left; }
+  .carousel .slides { position: relative; }
+  .carousel .slide { display: none; margin: 0; }
+  .carousel .slide.active { display: block; }
+  .car-controls { display: flex; align-items: center; justify-content: center; gap: 14px; margin-top: 12px; }
+  .car-btn { border: 1px solid #DCBDB6; background: var(--paper); color: var(--maroon); border-radius: 999px; width: 40px; height: 40px; font-size: 1.4rem; line-height: 1; cursor: pointer; }
+  .car-btn:hover { border-color: var(--saffron); }
+  .car-btn:focus-visible { outline: 3px solid var(--gold); outline-offset: 2px; }
+  .car-count { color: var(--muted); font-size: 0.95rem; min-width: 56px; text-align: center; }
 </style>
 </head>
 <body>
@@ -693,12 +701,23 @@
 
   <section class="team" id="team" aria-labelledby="team-title">
     <h2 class="sec-h" id="team-title">Meet the team</h2>
-    <figure class="team-card">
-      <img src="images/team-amaira.jpg" alt="Amaira in a blue princess dress, stirring a pot on the stove" loading="lazy">
-      <figcaption>
-        <strong>Amaira</strong>, Mumma's assistant. She keeps an eye on the pot and helps in the kitchen.
-      </figcaption>
-    </figure>
+    <div class="team-card carousel" id="team-carousel" aria-roledescription="carousel" aria-label="Meet Amaira">
+      <div class="slides">
+        <figure class="slide active">
+          <img src="images/team-amaira.jpg" alt="Amaira in a blue princess dress, stirring a pot on the stove" loading="lazy">
+          <figcaption><strong>Amaira</strong>, Mumma's assistant. She keeps an eye on the pot and helps in the kitchen.</figcaption>
+        </figure>
+        <figure class="slide">
+          <img src="images/team-amaira-2.jpg" alt="Amaira sitting on the floor, mixing batter in a steel bowl" loading="lazy">
+          <figcaption><strong>Amaira</strong>, Mumma's assistant. Mixing the batter by hand.</figcaption>
+        </figure>
+      </div>
+      <div class="car-controls">
+        <button class="car-btn car-prev" type="button" aria-label="Previous photo">&#8249;</button>
+        <span class="car-count" aria-live="polite">1 of 2</span>
+        <button class="car-btn car-next" type="button" aria-label="Next photo">&#8250;</button>
+      </div>
+    </div>
   </section>
 </main>
 
@@ -1247,6 +1266,22 @@
     card.append(dishPhoto(name, "thumb"), label);
     favGrid.appendChild(card);
   });
+
+  // ---------- Meet the team carousel ----------
+  (function () {
+    const root = document.getElementById("team-carousel");
+    if (!root) return;
+    const slides = [...root.querySelectorAll(".slide")];
+    const count = root.querySelector(".car-count");
+    let i = 0;
+    function show(n) {
+      i = (n + slides.length) % slides.length;
+      slides.forEach((el, k) => el.classList.toggle("active", k === i));
+      count.textContent = `${i + 1} of ${slides.length}`;
+    }
+    root.querySelector(".car-prev").addEventListener("click", () => show(i - 1));
+    root.querySelector(".car-next").addEventListener("click", () => show(i + 1));
+  })();
 </script>
 </body>
 </html>
