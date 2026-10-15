@@ -560,11 +560,6 @@
   <div class="foot-inner">
     <div class="foot-brand">Shaam-e-Awadh</div>
     <p class="foot-line">Made by Nupur with love for her family.</p>
-    <nav class="foot-links" aria-label="Footer">
-      <a href="#" data-go="pick">Kuch Bhi</a>
-      <a href="#" data-go="menu">Full menu</a>
-      <a href="#" data-go="chef">About the Chef</a>
-    </nav>
   </div>
 </footer>
 
@@ -668,15 +663,6 @@
       ]
     }
   ];
-
-  // ---------- Footer links jump to the matching tab ----------
-  document.querySelectorAll(".foot-links a[data-go]").forEach(a => {
-    a.addEventListener("click", e => {
-      e.preventDefault();
-      document.getElementById(`tab-${a.dataset.go}`).click();
-      window.scrollTo({ top: 0, behavior: "smooth" });
-    });
-  });
 
   // ---------- Tabs ----------
   const tabs = document.querySelectorAll(".tab");
