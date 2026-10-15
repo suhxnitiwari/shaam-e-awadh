@@ -93,6 +93,34 @@
     font-size: 1.05rem;
   }
 
+  /* About the chef */
+  .chef {
+    max-width: 640px;
+    margin: 0 auto;
+    background: var(--paper);
+    border: 1px solid var(--line);
+    border-radius: 16px;
+    padding: 28px 26px;
+    text-align: center;
+  }
+  .chef img {
+    display: block;
+    width: 100%;
+    border-radius: 12px;
+    margin-bottom: 18px;
+  }
+  .chef h2 {
+    font-family: "Cormorant Garamond", serif;
+    color: var(--maroon);
+    font-size: 2.1rem;
+    margin: 0 0 12px;
+  }
+  .chef p {
+    font-size: 1.02rem;
+    margin: 0 0 14px;
+    text-align: left;
+  }
+
   /* Tabs */
   .tabs {
     display: flex;
@@ -320,6 +348,7 @@
   <div class="tabs" role="tablist">
     <button class="tab" id="tab-pick" role="tab" aria-selected="true" aria-controls="panel-pick" data-tab="pick" type="button">Kuch Bhi</button>
     <button class="tab" id="tab-menu" role="tab" aria-selected="false" aria-controls="panel-menu" data-tab="menu" type="button">Full menu</button>
+    <button class="tab" id="tab-chef" role="tab" aria-selected="false" aria-controls="panel-chef" data-tab="chef" type="button">About the Chef</button>
   </div>
 
   <!-- Tab 1: Kuch Bhi wizard -->
@@ -333,6 +362,17 @@
     <nav class="jump" id="jump"></nav>
     <div id="menu"></div>
     <div class="empty hidden" id="empty">No dishes match that search.</div>
+  </div>
+
+  <!-- Tab 3: About the chef -->
+  <div id="panel-chef" role="tabpanel" aria-labelledby="tab-chef" class="hidden">
+    <article class="chef">
+      <img src="images/mumma-kitchen.jpg" alt="Nupur in her kitchen, stuffing cucumber cups" loading="lazy">
+      <h2>Meet Nupur</h2>
+      <p>Nupur has been cooking since she got married at 21. Everything on this menu comes from her kitchen, and most of it from memory.</p>
+      <p>Her favorite thing to make is chole bhature.</p>
+      <p>She's also tired of hearing "kuch bhi" every time she asks what to make. So this site gives her a real answer: pick a dish yourself, or let the Kya banau? button pick for you.</p>
+    </article>
   </div>
 </main>
 
@@ -450,7 +490,11 @@
 
   // ---------- Tabs ----------
   const tabs = document.querySelectorAll(".tab");
-  const panels = { pick: document.getElementById("panel-pick"), menu: document.getElementById("panel-menu") };
+  const panels = {
+    pick: document.getElementById("panel-pick"),
+    menu: document.getElementById("panel-menu"),
+    chef: document.getElementById("panel-chef")
+  };
   tabs.forEach(tab => {
     tab.addEventListener("click", () => {
       const name = tab.dataset.tab;
