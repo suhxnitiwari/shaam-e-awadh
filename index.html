@@ -628,6 +628,10 @@
   .car-btn:hover { border-color: var(--saffron); }
   .car-btn:focus-visible { outline: 3px solid var(--gold); outline-offset: 2px; }
   .car-count { color: var(--muted); font-size: 0.95rem; min-width: 56px; text-align: center; }
+  /* photos keep their natural shape on the wall, no cropping into strips */
+  .thumb { height: auto !important; max-height: none !important; }
+  .thumb img { height: auto !important; max-height: none !important; width: 100%; object-fit: cover; }
+  .thumb:not(.no-photo) { aspect-ratio: auto !important; }
 </style>
 </head>
 <body>
