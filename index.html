@@ -7,7 +7,7 @@
 <meta name="description" content="A family collection of vegetarian dishes, from everyday home-cooked meals to Lucknowi specialties.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,700;1,500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,700;1,500&family=Inter:wght@400;500;600&family=Noto+Sans+Devanagari:wght@400;600&display=swap" rel="stylesheet">
 <style>
   :root {
     --cream: #fbf6ee;
@@ -355,6 +355,20 @@
     border: 1px solid var(--line);
   }
   .dish-name { flex: 1; min-width: 0; }
+  ol.dishes .caption { flex-wrap: wrap; }
+  .caption .hindi {
+    flex-basis: 100%;
+    font-family: "Noto Sans Devanagari", "Kohinoor Devanagari", sans-serif;
+    color: var(--muted);
+    font-size: 0.92rem;
+    margin-top: 2px;
+  }
+  .pick-hindi {
+    font-family: "Noto Sans Devanagari", "Kohinoor Devanagari", sans-serif;
+    color: var(--muted);
+    font-size: 1.05rem;
+    margin-top: 4px;
+  }
 
   /* Family favorites */
   .favorites {
@@ -755,6 +769,57 @@
     return choice;
   }
 
+  // ---------- Hindi (Devanagari) names ----------
+  const HINDI = {
+    "Pani Puri": "पानी पूरी", "Dahi Puri": "दही पूरी", "Samosa": "समोसा",
+    "Aloo Tikki Chaat": "आलू टिक्की चाट", "Moonglet": "मूंगलेट", "Bread Rolls": "ब्रेड रोल्स",
+    "Paneer Pakora": "पनीर पकोड़ा", "Onion Pakora": "प्याज़ पकोड़ा", "Mixed Pakora": "मिक्स पकोड़ा",
+    "Pav Bhaji": "पाव भाजी", "Dahi Kebab": "दही कबाब", "Veg Galouti Kebab": "वेज गलौटी कबाब",
+    "Hara Bhara Kebab": "हरा भरा कबाब", "Sabudana Vada": "साबूदाना वड़ा", "Masala Papad": "मसाला पापड़",
+    "Cheese Corn Toast": "चीज़ कॉर्न टोस्ट", "Jalapeño Cheese Poppers": "जलापेनो चीज़ पॉपर्स",
+    "Monaco Creamy Yogurt Bites": "मोनाको क्रीमी योगर्ट बाइट्स", "Mango Salsa": "मैंगो साल्सा",
+    "Guacamole & Chips": "ग्वाकामोले और चिप्स", "Red Sauce Pasta": "रेड सॉस पास्ता", "Tomato Soup": "टमाटर का सूप",
+    "Matar Paneer": "मटर पनीर", "Shahi Paneer": "शाही पनीर", "Palak Paneer": "पालक पनीर",
+    "Paneer Butter Masala": "पनीर बटर मसाला", "Paneer Lababdar": "पनीर लबाबदार", "Kadai Paneer": "कड़ाही पनीर",
+    "Paneer Bhurji": "पनीर भुर्जी", "Paneer Tikka Masala": "पनीर टिक्का मसाला", "Paneer Jalfrezi": "पनीर जलफ्रेज़ी",
+    "Aloo Gobi": "आलू गोभी", "Aloo Gobi Matar": "आलू गोभी मटर", "Aloo Pyaz": "आलू प्याज़", "Aloo Methi": "आलू मेथी",
+    "Dum Aloo": "दम आलू", "Aloo Tamatar": "आलू टमाटर", "Masala Aloo": "मसाला आलू", "Banarasi Aloo": "बनारसी आलू",
+    "Bari Aloo Matar Tamatar": "बड़ी आलू मटर टमाटर", "Aloo Matar": "आलू मटर", "Aloo Baingan": "आलू बैंगन",
+    "Palak Aloo": "पालक आलू", "Mixed Vegetables": "मिक्स सब्ज़ी", "Baingan Ka Bharta": "बैंगन का भर्ता",
+    "Kaddu Ki Sabzi": "कद्दू की सब्ज़ी", "Torai Ki Sabzi": "तोरई की सब्ज़ी", "Lauki Ki Sabzi": "लौकी की सब्ज़ी",
+    "Guar Phali": "ग्वार फली", "French Beans": "फ्रेंच बीन्स", "Cabbage Ki Sabzi": "पत्ता गोभी की सब्ज़ी",
+    "Arbi Mumtaz": "अरबी मुमताज़", "Gatte Ki Sabzi": "गट्टे की सब्ज़ी", "Nimona (Seasonal)": "निमोना",
+    "Sarson Ka Saag (Seasonal)": "सरसों का साग", "Bhindi Masala": "भिंडी मसाला", "Gobi Matar": "गोभी मटर",
+    "Veg Jalfrezi": "वेज जलफ्रेज़ी", "Zafrani Kofta": "ज़ाफ़रानी कोफ्ता", "Malai Kofta": "मलाई कोफ्ता",
+    "Vegetable Korma": "वेजिटेबल कोरमा", "Navratan Korma": "नवरतन कोरमा", "Methi Matar Malai": "मेथी मटर मलाई",
+    "Mixed Dal": "मिक्स दाल", "Masoor Dal": "मसूर दाल", "Dal Tadka": "दाल तड़का", "Dal Makhani": "दाल मखनी",
+    "Dal Baati": "दाल बाटी", "Dal Palak": "दाल पालक", "Rajma": "राजमा", "Chole": "छोले",
+    "Punjabi Kadhi": "पंजाबी कढ़ी", "Lobia Masala": "लोबिया मसाला",
+    "Stuffed Paratha": "स्टफ्ड पराठा", "Aloo Paratha": "आलू पराठा", "Palak Paratha": "पालक पराठा",
+    "Gobi Paratha": "गोभी पराठा", "Mooli Paratha": "मूली पराठा", "Paneer Paratha": "पनीर पराठा",
+    "Dal Ki Kachori": "दाल की कचौरी", "Bedmi Puri": "बेडमी पूरी", "Sheermal": "शीरमाल",
+    "Plain Rice": "सादा चावल", "Jeera Rice": "जीरा राइस", "Matar Rice": "मटर चावल", "Tehri": "तहरी",
+    "Lucknowi Vegetable Biryani": "लखनवी वेज बिरयानी", "Kashmiri Pulao": "कश्मीरी पुलाव", "Zafrani Pulao": "ज़ाफ़रानी पुलाव",
+    "Shahi Tukda": "शाही टुकड़ा", "Gulab Jamun": "गुलाब जामुन", "Jalebi": "जलेबी", "Rabri": "रबड़ी",
+    "Gajar Ka Halwa": "गाजर का हलवा", "Malai Kulfi": "मलाई कुल्फी", "Kesar Kulfi": "केसर कुल्फी",
+    "Kulfi Falooda": "कुल्फी फालूदा",
+    "Masala Chai": "मसाला चाय", "Mango Lassi": "मैंगो लस्सी", "Latte": "लाटे", "Cold Coffee": "कोल्ड कॉफी",
+    "Aloo Bhujia": "आलू भुजिया", "Bikaneri Bhujia": "बीकानेरी भुजिया", "Ratlami Sev": "रतलामी सेव",
+    "Plain Sev": "सादा सेव", "Khatta Meetha Mixture": "खट्टा मीठा मिक्सचर", "Navratan Mixture": "नवरतन मिक्सचर",
+    "Dal Moth": "दाल मोठ", "Moong Dal Namkeen": "मूंग दाल नमकीन", "Chana Dal Namkeen": "चना दाल नमकीन",
+    "Masala Peanuts": "मसाला मूंगफली", "Hing Chana": "हींग चना", "Mathri": "मठरी", "Methi Mathri": "मेथी मठरी",
+    "Namak Para": "नमक पारे", "Shakkar Para": "शक्कर पारे", "Masala Shankarpali": "मसाला शंकरपाली",
+    "Nimki": "निमकी", "Masala Makhana": "मसाला मखाना", "Chivda": "चिवड़ा", "Murmura Namkeen": "मुरमुरा नमकीन"
+  };
+
+  function hindiLine(name, cls) {
+    const el = document.createElement("div");
+    el.className = cls;
+    el.lang = "hi";
+    el.textContent = HINDI[name] || "";
+    return el;
+  }
+
   // ---------- Dish photos ----------
   // Photos live in images/dishes/<dish-name>.jpg (see images/dishes/README.md).
   // If a photo is missing, a cream tile with the dish's first letter shows instead.
@@ -849,6 +914,7 @@
         <div class="pick-side">with <span class="side-name"></span></div>
         ${resultActions()}`;
       wizardEl.querySelector(".pick-dish").textContent = dish;
+      wizardEl.querySelector(".pick-dish").after(hindiLine(dish, "pick-hindi"));
       wizardEl.querySelector(".side-name").textContent = side;
       wizardEl.querySelector(".pick-dish").before(dishPhoto(dish, "thumb big"));
     } else {
@@ -862,6 +928,7 @@
         ${resultActions()}`;
       wizardEl.querySelector(".pick-dish").textContent = dish;
       wizardEl.querySelector(".pick-dish").before(dishPhoto(dish, "thumb big"));
+      wizardEl.querySelector(".pick-dish").after(hindiLine(dish, "pick-hindi"));
     }
   }
 
@@ -941,7 +1008,7 @@
         label.textContent = item;
         const caption = document.createElement("div");
         caption.className = "caption";
-        caption.append(num, label);
+        caption.append(num, label, hindiLine(item, "hindi"));
         li.append(dishPhoto(item, "thumb"), caption);
         list.appendChild(li);
       });
