@@ -696,6 +696,18 @@
   html, body { overflow-x: hidden; }
   header.hero .cover .cover-text .intro, header.hero .cover p.intro { text-align: center !important; margin: 0 auto !important; }
   header.hero .cover .tagline { text-align: center !important; }
+  /* Lucknow identity: arches, gold ornament, faint chikan-style dot pattern */
+  body { background-image: radial-gradient(rgba(184, 122, 20, 0.07) 1.2px, transparent 1.4px); background-size: 22px 22px; }
+  .chef-section .chef > img { border-radius: 260px 260px 14px 14px; max-height: 460px; object-fit: cover; object-position: 50% 30%; }
+  .sec-h::after, .favorites h2::after, .chef-section h2::after, .team h2::after {
+    content: ""; display: block; width: 64px; height: 2px; margin-top: 10px; background: var(--gold);
+  }
+  .sec-h { display: block; }
+  .favorites h2::after, .chef-section h2::after, .team h2::after { margin-left: 0; }
+  .tasters img { border-radius: 12px; }
+  .fav-card { border-color: #E6C88A !important; }
+  .teaser, .pick-card { border-color: #E6C88A; }
+  .tab.active, .tab[aria-current="page"] { color: var(--maroon); }
 </style>
 </head>
 <body>
