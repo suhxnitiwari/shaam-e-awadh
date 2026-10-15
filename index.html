@@ -838,6 +838,20 @@
   ol.wall > li.dish { display: flex; flex-direction: column; }
   ol.wall > li.dish .caption { margin-top: auto; }
   @media (max-width: 720px) { ol.wall { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; } }
+  /* Her spice box: a round masala dabba with tappable tins */
+  .spice-box { text-align: center; }
+  .dabba { position: relative; width: min(340px, 90%); aspect-ratio: 1; margin: 18px auto 14px; border-radius: 50%; background: radial-gradient(circle at 35% 30%, #f7f4ee, #c9ccd1 55%, #9aa0a8); box-shadow: 0 8px 22px rgba(30,16,10,0.22), inset 0 0 0 6px #e9ebee; }
+  .dabba-rim { position: absolute; inset: 6%; border-radius: 50%; border: 2px solid rgba(255,255,255,0.6); }
+  .dabba-knob { position: absolute; left: 50%; top: 50%; width: 22%; height: 22%; transform: translate(-50%, -50%); border-radius: 50%; background: radial-gradient(circle at 35% 30%, #fff, #b9bec6 60%, #7f868f); box-shadow: 0 2px 6px rgba(0,0,0,0.25); }
+  .tin { position: absolute; width: 30%; aspect-ratio: 1; transform: translate(-50%, -50%); border: 3px solid #d9dde2; border-radius: 50%; cursor: pointer; background: radial-gradient(circle at 38% 32%, rgba(255,255,255,0.35), var(--c) 55%, color-mix(in srgb, var(--c) 70%, #000) 100%); box-shadow: 0 3px 8px rgba(0,0,0,0.28), inset 0 2px 6px rgba(0,0,0,0.25); transition: transform 0.15s ease, box-shadow 0.15s ease; padding: 0; }
+  .tin:hover { transform: translate(-50%, -50%) scale(1.07); }
+  .tin:focus-visible { outline: 3px solid #D9A441; outline-offset: 4px; }
+  .tin.active { box-shadow: 0 0 0 4px #D9A441, 0 3px 8px rgba(0,0,0,0.28); }
+  .tin-label { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); white-space: nowrap; font-size: 0.7rem; font-weight: 600; color: #fff; background: rgba(30,16,10,0.72); padding: 3px 7px; border-radius: 999px; pointer-events: none; }
+  .spice-detail { min-height: 3.2em; margin: 6px auto 0; max-width: 520px; color: var(--ink); }
+  .sd-name { display: block; font-family: Georgia, serif; font-size: 1.15rem; color: #7E3F4A; }
+  .sd-text { display: block; margin-top: 4px; color: var(--muted); }
+  @media (max-width: 720px) { .tin-label { font-size: 0.6rem; padding: 2px 5px; } }
 </style>
 </head>
 <body>
@@ -896,15 +910,27 @@
       <p>Her favorite thing to make is chole bhature.</p>
       <div class="spice-box">
         <h3>Her spice box</h3>
-        <p class="spice-sub">The spices she uses in almost everything she makes.</p>
-        <ul class="spices">
-          <li>Jeera</li>
-          <li>Haldi</li>
-          <li>Dhania powder</li>
-          <li>Lal mirch powder</li>
-          <li>Garam masala</li>
-          <li>Salt</li>
-        </ul>
+        <p class="spice-sub">The spices she uses in almost everything she makes. Tap a tin to see it.</p>
+        <div class="dabba" id="dabba">
+          <div class="dabba-rim"></div>
+<button class="tin" type="button" data-spice="jeera" style="left:50.00%;top:14.00%;--c:#c9a866" aria-label="Jeera"><span class="tin-label">Jeera</span></button>
+<button class="tin" type="button" data-spice="haldi" style="left:81.18%;top:32.00%;--c:#e9a419" aria-label="Haldi"><span class="tin-label">Haldi</span></button>
+<button class="tin" type="button" data-spice="dhania" style="left:81.18%;top:68.00%;--c:#b8864a" aria-label="Dhania powder"><span class="tin-label">Dhania powder</span></button>
+<button class="tin" type="button" data-spice="lalmirch" style="left:50.00%;top:86.00%;--c:#c8321e" aria-label="Lal mirch powder"><span class="tin-label">Lal mirch powder</span></button>
+<button class="tin" type="button" data-spice="garam" style="left:18.82%;top:68.00%;--c:#7a4a2b" aria-label="Garam masala"><span class="tin-label">Garam masala</span></button>
+<button class="tin" type="button" data-spice="salt" style="left:18.82%;top:32.00%;--c:#efe9df" aria-label="Salt"><span class="tin-label">Salt</span></button>
+          <div class="dabba-knob"></div>
+        </div>
+        <div class="spice-detail" id="spice-detail" aria-live="polite">
+          <strong class="sd-name">Tap a tin</strong>
+          <span class="sd-text">Every spice in her kitchen, one tin at a time.</span>
+        </div>
+      <span hidden data-info="jeera" data-name="Jeera">Cumin seeds. Usually the first thing into hot oil for the tadka.</span>
+      <span hidden data-info="haldi" data-name="Haldi">Turmeric. Bright yellow, goes into most sabzis and dals.</span>
+      <span hidden data-info="dhania" data-name="Dhania powder">Coriander powder. Earthy and mild, the base of many gravies.</span>
+      <span hidden data-info="lalmirch" data-name="Lal mirch powder">Red chili powder. Brings the heat and the color.</span>
+      <span hidden data-info="garam" data-name="Garam masala">A warm blend, sprinkled in near the end of cooking.</span>
+      <span hidden data-info="salt" data-name="Salt">Goes in early, and it always gets a taste check at the end.</span>
       </div>
       <p>She's also tired of hearing "kuch bhi" every time she asks what to make. So this site gives her a real answer: pick a dish yourself, or let the Kya banau? button pick for you.</p>
     </article>
@@ -1088,6 +1114,24 @@
     wrap.appendChild(img);
     return wrap;
   }
+
+
+  // ---------- Her spice box: tap a tin ----------
+  (function () {
+    const dabba = document.getElementById("dabba");
+    const detail = document.getElementById("spice-detail");
+    if (!dabba || !detail) return;
+    const info = {};
+    document.querySelectorAll("[data-info]").forEach(el => { info[el.dataset.info] = { name: el.dataset.name, text: el.textContent.trim() }; });
+    dabba.addEventListener("click", e => {
+      const tin = e.target.closest(".tin");
+      if (!tin) return;
+      dabba.querySelectorAll(".tin").forEach(t => t.classList.toggle("active", t === tin));
+      const d = info[tin.dataset.spice];
+      detail.querySelector(".sd-name").textContent = d.name;
+      detail.querySelector(".sd-text").textContent = d.text;
+    });
+  })();
 
   // ---------- Kuch Bhi wizard ----------
   const wizardEl = document.getElementById("wizard");
