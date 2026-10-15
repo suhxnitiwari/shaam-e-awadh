@@ -413,11 +413,47 @@
     color: var(--muted);
     padding: 30px 0;
   }
-  footer {
+  .site-footer {
+    background: var(--maroon);
+    color: var(--cream);
+    padding: 40px 20px 34px;
     text-align: center;
-    color: var(--muted);
+  }
+  .foot-inner {
+    max-width: 640px;
+    margin: 0 auto;
+  }
+  .foot-brand {
+    font-family: "Cormorant Garamond", serif;
+    font-size: 1.9rem;
+    font-weight: 700;
+    color: var(--gold);
+  }
+  .foot-line {
+    margin: 6px 0 18px;
+    opacity: 0.95;
+  }
+  .foot-links {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px 24px;
+    margin-bottom: 20px;
+  }
+  .foot-links a {
+    color: var(--cream);
+    text-decoration: none;
     font-size: 0.85rem;
-    padding: 10px 20px 36px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    border-bottom: 1px solid transparent;
+  }
+  .foot-links a:hover { border-bottom-color: var(--gold); }
+  .foot-small {
+    font-size: 0.85rem;
+    opacity: 0.75;
+    margin: 0;
   }
   @media (max-width: 480px) {
     section.cat { padding: 18px; }
@@ -429,12 +465,6 @@
 </head>
 <body>
 
-<header>
-  <h1>Shaam-e-Awadh</h1>
-  <div class="tagline">Aaj khaane mein kya banega? Ghar ka khana, Nawabi andaaz mein.</div>
-  <p class="intro">A collection of Nupur's Rasoi's best vegetarian dishes, from everyday home-cooked meals to Lucknowi specialties.</p>
-</header>
-
 <nav class="tabs" aria-label="Site sections">
   <span class="brand">Shaam-e-Awadh</span>
   <div class="tab-group" role="tablist">
@@ -443,6 +473,12 @@
     <button class="tab" id="tab-chef" role="tab" aria-selected="false" aria-controls="panel-chef" data-tab="chef" type="button">About the Chef</button>
   </div>
 </nav>
+
+<header>
+  <h1>Shaam-e-Awadh</h1>
+  <div class="tagline">Aaj khaane mein kya banega? Ghar ka khana, Nawabi andaaz mein.</div>
+  <p class="intro">A collection of Nupur's Rasoi's best vegetarian dishes, from everyday home-cooked meals to Lucknowi specialties.</p>
+</header>
 
 <main>
 
@@ -481,7 +517,18 @@
   </div>
 </main>
 
-<footer>Shaam-e-Awadh. Made by Nupur with love for her family.</footer>
+<footer class="site-footer">
+  <div class="foot-inner">
+    <div class="foot-brand">Shaam-e-Awadh</div>
+    <p class="foot-line">Made by Nupur with love for her family.</p>
+    <nav class="foot-links" aria-label="Footer">
+      <a href="#" data-go="pick">Kuch Bhi</a>
+      <a href="#" data-go="menu">Full menu</a>
+      <a href="#" data-go="chef">About the Chef</a>
+    </nav>
+    <p class="foot-small">Vegetarian dishes from Lucknow, Ahmedabad, Delhi, and home.</p>
+  </div>
+</footer>
 
 <script>
   // Edit this list to change the menu. Counts and numbering update automatically.
@@ -583,6 +630,15 @@
       ]
     }
   ];
+
+  // ---------- Footer links jump to the matching tab ----------
+  document.querySelectorAll(".foot-links a[data-go]").forEach(a => {
+    a.addEventListener("click", e => {
+      e.preventDefault();
+      document.getElementById(`tab-${a.dataset.go}`).click();
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    });
+  });
 
   // ---------- Tabs ----------
   const tabs = document.querySelectorAll(".tab");
