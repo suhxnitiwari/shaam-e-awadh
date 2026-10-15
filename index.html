@@ -943,7 +943,6 @@
   {
     id: "appetizers",
     title: "Appetizers & Chaat",
-    icon: "🥟",
     groups: [
       {
         name: "",
@@ -954,7 +953,6 @@
   {
     id: "indo-western",
     title: "Indo-Western",
-    icon: "🌯",
     groups: [
       {
         name: "",
@@ -965,7 +963,6 @@
   {
     id: "main",
     title: "Main Course",
-    icon: "🍛",
     groups: [
       {
         name: "",
@@ -976,7 +973,6 @@
   {
     id: "breads",
     title: "Bread",
-    icon: "🫓",
     groups: [
       {
         name: "",
@@ -987,7 +983,6 @@
   {
     id: "rice",
     title: "Rice & Biryani",
-    icon: "🍚",
     groups: [
       {
         name: "",
@@ -998,7 +993,6 @@
   {
     id: "namkeen",
     title: "Namkeen to Take Home",
-    icon: "🥨",
     groups: [
       {
         name: "",
@@ -1009,7 +1003,6 @@
   {
     id: "mithai",
     title: "Mithai & Kulfi",
-    icon: "🍮",
     groups: [
       {
         name: "",
@@ -1020,7 +1013,6 @@
   {
     id: "beverages",
     title: "Drinks",
-    icon: "🥤",
     groups: [
       {
         name: "",
@@ -1217,7 +1209,7 @@
     const head = document.createElement("li");
     head.className = "sec-head";
     head.id = sec.id;
-    head.innerHTML = `<h2>${sec.icon} ${sec.title}</h2><div class="count">${count} dishes</div>`;
+    head.innerHTML = `<h2>${sec.title}</h2><div class="count">${count} dishes</div>`;
     menuEl.appendChild(head);
 
     const groups = [];
