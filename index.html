@@ -1283,7 +1283,8 @@
     const head = document.createElement("li");
     head.className = "sec-head";
     head.id = sec.id;
-    head.innerHTML = `<h2>${sec.title}</h2><div class="count">${count} dishes</div>`;
+    const caption = sec.id === "mithai" ? "Kuch Mithai Ho jaye" : `${count} dishes`;
+    head.innerHTML = `<h2>${sec.title}</h2><div class="count">${caption}</div>`;
     menuEl.appendChild(head);
 
     // Drinks sit together in one row
