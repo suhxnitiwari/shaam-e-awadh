@@ -790,6 +790,11 @@
     img.src = `images/dishes/${dishSlug(name)}.jpg`;
     img.alt = name;
     img.loading = "lazy";
+    // Once a real photo loads, let its own shape set the card height (true Pinterest sizing).
+    img.onload = () => {
+      wrap.style.aspectRatio = "";
+      img.style.height = "auto";
+    };
     img.onerror = () => {
       img.remove();
       wrap.classList.add("no-photo");
