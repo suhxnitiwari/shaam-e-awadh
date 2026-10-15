@@ -632,6 +632,12 @@
   .thumb { height: auto !important; max-height: none !important; }
   .thumb img { height: auto !important; max-height: none !important; width: 100%; object-fit: cover; }
   .thumb:not(.no-photo) { aspect-ratio: auto !important; }
+  /* chef section sits on the same 1100px column as everything else, with clear space above it */
+  .chef-section { max-width: 100%; margin: 64px 0 0; }
+  .chef-section .chef { max-width: 100%; margin: 0; text-align: left; padding: 28px; }
+  .chef-section .chef img { max-height: 420px; object-fit: cover; margin-bottom: 18px; }
+  .chef-section .tasters { margin-top: 28px; }
+  .team { margin-top: 64px; }
 </style>
 </head>
 <body>
@@ -646,13 +652,6 @@
 </nav>
 
 <header class="hero">
-  <div class="hero-strip" aria-hidden="true">
-    <img src="images/dishes/pani-puri.jpg" alt="">
-    <img src="images/dishes/pav-bhaji.jpg" alt="">
-    <img src="images/dishes/bread-rolls.jpg" alt="">
-    <img src="images/dishes/mixed-pakora.jpg" alt="">
-    <img src="images/dishes/aloo-tikki-chaat.jpg" alt="">
-  </div>
   <div class="hero-text">
     <h1>Shaam-e-Awadh</h1>
     <div class="tagline">Aaj khaane mein kya banega? Ghar ka khana, Nawabi andaaz mein.</div>
@@ -1053,7 +1052,7 @@
   }
 
   // Pinterest-style: each card gets its own height, picked from a few shapes by its name.
-  const CARD_SHAPES = [0.75, 0.9, 0.66, 1, 0.8];
+  const CARD_SHAPES = [1, 1.15, 0.95, 1.25, 1.05];
 
   function dishPhoto(name, extraClass) {
     const wrap = document.createElement("span");
