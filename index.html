@@ -724,15 +724,6 @@
   .deewani-grid figure { margin: 0; }
   .deewani-grid img { display: block; width: 100%; aspect-ratio: 4 / 5; object-fit: cover; border: 4px solid var(--gold); border-radius: 200px 200px 10px 10px; }
   @media (max-width: 720px) { .deewani-grid { grid-template-columns: 1fr; } .deewani-grid img { aspect-ratio: 4 / 4.5; } }
-  /* welcome banner now sits at the top of the hero */
-  .welcome-top { position: absolute; top: 22px; left: 50%; transform: translateX(-50%); width: min(860px, calc(100% - 32px)); z-index: 2; }
-  .welcome-top .welcome-card { height: 150px; border-width: 4px; }
-  .welcome-top .welcome-text .w1 { font-size: clamp(1.2rem, 2.8vw, 1.9rem); }
-  .welcome-top .welcome-text .w2 { font-size: clamp(0.95rem, 2vw, 1.3rem); }
-  @media (max-width: 720px) { .welcome-top { top: 12px; } .welcome-top .welcome-card { height: 120px; } }
-  /* motto banner: text only, burgundy and gold */
-  .welcome-top .welcome-card { background: #6b1d2a radial-gradient(rgba(240,199,115,0.18) 1.2px, transparent 1.4px) 0 0 / 18px 18px; border-color: #f0c773; }
-  .welcome-top .welcome-card::after { background: none; }
 
   /* Lucknow domes: gold dome-and-spire divider above menu sections and main headings */
   :root { --dome: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 240 30'><g fill='%23B87A14' opacity='.8'><path d='M25 28 Q25 14 30 8 Q35 14 35 28 Z'/><rect x='29.2' y='2' width='1.6' height='4'/><path d='M63 28 Q63 10 70 5 Q77 10 77 28 Z'/><rect x='69.2' y='0' width='1.6' height='3'/><path d='M109 28 Q109 6 120 2 Q131 6 131 28 Z'/><rect x='119.2' y='-1' width='1.6' height='3'/><path d='M163 28 Q163 10 170 5 Q177 10 177 28 Z'/><rect x='169.2' y='0' width='1.6' height='3'/><path d='M205 28 Q205 14 210 8 Q215 14 215 28 Z'/><rect x='209.2' y='2' width='1.6' height='4'/><rect x='0' y='27' width='240' height='1.5'/></g></svg>"); }
