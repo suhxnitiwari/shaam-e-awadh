@@ -656,6 +656,38 @@
     .cover-text { left: 20px; right: 20px; bottom: 22px; }
     .cover-title { font-size: 2.4rem !important; }
   }
+  /* photos keep their own shape in About the Chef and Meet the team */
+  .chef-section, .chef-section .chef, .team { width: 100%; max-width: none; box-sizing: border-box; }
+  .chef-section .chef img, .chef-section .tasters img, .team-card img, .carousel .slide img {
+    max-height: none !important; height: auto !important; object-fit: contain; background: transparent;
+  }
+  .chef-section .chef > img { display: block; width: 100%; }
+  /* Pinterest wall: bigger tiles, wider columns, filling the page column */
+  ol.wall { width: 100%; max-width: 100%; columns: 250px auto; column-gap: 16px; }
+  ol.wall > li { margin: 0 0 16px; }
+  ol.wall > li.dish .caption { padding: 10px 12px 12px; font-size: 0.98rem; }
+  ol.wall > li.dish .dish-name { font-size: 0.98rem; }
+  /* home hero, after suhanitiwari.com: full-bleed photo, big spaced title, pill buttons, scroll cue */
+  header.hero { padding: 0; max-width: none; }
+  .cover { width: 100vw; max-width: none; margin-left: calc(50% - 50vw); height: 88vh; min-height: 540px; max-height: 820px; border-radius: 0; box-shadow: none; }
+  .cover img { object-position: 50% 24%; }
+  .cover::after { background: linear-gradient(to bottom, rgba(30,16,10,0.25) 0%, rgba(30,16,10,0.15) 40%, rgba(30,16,10,0.78) 100%); }
+  .cover-text { left: 0; right: 0; bottom: 19%; text-align: center; padding: 0 20px; }
+  .cover-title { font-family: Georgia, serif !important; font-weight: 400 !important; text-transform: uppercase; letter-spacing: 0.14em !important; font-size: clamp(2.2rem, 6.4vw, 5rem) !important; line-height: 1.05 !important; text-align: center !important; }
+  .cover .tagline { font-style: italic; font-size: clamp(1.1rem, 2.2vw, 1.5rem); text-align: center; margin: 14px 0 10px; }
+  .cover p.intro { margin: 0 auto; text-align: center; max-width: 560px; font-size: 1rem; }
+  .cover-actions { display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; margin-top: 26px; }
+  .pill { display: inline-flex; align-items: center; padding: 13px 26px; border-radius: 999px; border: 1.5px solid #fff; color: #fff; text-decoration: none; text-transform: uppercase; letter-spacing: 0.12em; font-size: 0.8rem; font-weight: 600; background: rgba(30,16,10,0.18); }
+  .pill:hover { background: rgba(255,255,255,0.14); }
+  .pill-main { background: #7E3F4A; border-color: #7E3F4A; }
+  .pill-main:hover { background: #652F3A; }
+  .pill:focus-visible { outline: 3px solid var(--gold); outline-offset: 3px; }
+  .scroll-cue { position: absolute; left: 50%; bottom: 18px; transform: translateX(-50%); z-index: 1; color: #fff; text-decoration: none; text-transform: uppercase; letter-spacing: 0.22em; font-size: 0.72rem; }
+  @media (max-width: 720px) {
+    .cover { height: 92vh; min-height: 560px; }
+    .cover-text { bottom: 16%; }
+    .pill { padding: 11px 18px; font-size: 0.72rem; }
+  }
 </style>
 </head>
 <body>
@@ -676,13 +708,19 @@
       <h1 class="cover-title">Shaam-e-Awadh</h1>
       <div class="tagline">Aaj khaane mein kya banega? Ghar ka khana, Nawabi andaaz mein.</div>
       <p class="intro">A collection of Nupur's Rasoi's best vegetarian dishes, from everyday home-cooked meals to Lucknowi specialties.</p>
+      <div class="cover-actions">
+        <a class="pill pill-main" href="#pick">Kya banau? &darr;</a>
+        <a class="pill" href="#menu-section">Full menu &rarr;</a>
+        <a class="pill" href="#chef">Meet Nupur &nearr;</a>
+      </div>
     </div>
+    <a class="scroll-cue" href="#pick">Scroll &darr;</a>
   </div>
 </header>
 
 <main>
   <div id="top"></div>
-  <section class="home-pick" aria-label="Kya banau">
+  <section class="home-pick" id="pick" aria-label="Kya banau">
     <div class="wizard" id="wizard" aria-live="polite"></div>
   </section>
 
