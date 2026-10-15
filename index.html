@@ -766,6 +766,17 @@
   .spice-sub { margin: 0 0 12px; color: var(--muted); }
   .spices { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 8px; }
   .spices li { padding: 7px 14px; border-radius: 999px; border: 1px solid #DCBDB6; background: var(--paper); color: var(--maroon); font-size: 0.95rem; }
+
+  /* more Lucknow dome character: arched photo tops, scalloped footer edge */
+  .fav-card { border-radius: 120px 120px 12px 12px !important; overflow: hidden; }
+  .fav-card .thumb { border-radius: 0 !important; }
+  .site-footer { position: relative; margin-top: 56px; background: #FFFDF9; }
+  .site-footer::before {
+    content: ""; position: absolute; left: 0; right: 0; top: -21px; height: 22px;
+    background: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 240 22' preserveAspectRatio='none'><path d='M0 22 V16 Q0 0 12 0 Q24 0 24 16 Q24 0 36 0 Q48 0 48 16 Q48 0 60 0 Q72 0 72 16 Q72 0 84 0 Q96 0 96 16 Q96 0 108 0 Q120 0 120 16 Q120 0 132 0 Q144 0 144 16 Q144 0 156 0 Q168 0 168 16 Q168 0 180 0 Q192 0 192 16 Q192 0 204 0 Q216 0 216 16 Q216 0 228 0 Q240 0 240 16 V22 Z' fill='%23F6E7D2'/></svg>") center / 240px 22px repeat-x;
+  }
+  .chef-section .chef { border-radius: 180px 180px 16px 16px !important; padding-top: 44px !important; }
+  .chef-section .chef > img { border-radius: 260px 260px 14px 14px; }
 </style>
 </head>
 <body>
