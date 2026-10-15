@@ -1010,7 +1010,7 @@
     groups: [
       {
         name: "",
-        items: ["Stuffed Paratha", "Aloo Paratha", "Palak Paratha", "Gobi Paratha", "Mooli Paratha", "Paneer Paratha", "Dal Ki Kachori", "Bedmi Puri", "Sheermal", "Naan"]
+        items: ["Stuffed Paratha", "Aloo Paratha", "Palak Paratha", "Gobi Paratha", "Mooli Paratha", "Paneer Paratha", "Dal Ki Kachori", "Bedmi Puri", "Aloo Ki Puri", "Naan"]
       }
     ]
   },
@@ -1021,16 +1021,6 @@
       {
         name: "",
         items: ["Plain Rice", "Jeera Rice", "Matar Rice", "Tehri", "Khichdi", "Lucknowi Vegetable Biryani", "Kashmiri Pulao", "Zafrani Pulao"]
-      }
-    ]
-  },
-  {
-    id: "namkeen",
-    title: "Namkeen to Take Home",
-    groups: [
-      {
-        name: "",
-        items: ["Aloo Bhujia", "Bikaneri Bhujia", "Ratlami Sev", "Plain Sev", "Khatta Meetha Mixture", "Navratan Mixture", "Chivda", "Murmura Namkeen", "Dal Moth", "Moong Dal Namkeen", "Chana Dal Namkeen", "Masala Peanuts", "Hing Chana", "Masala Makhana", "Mathri", "Methi Mathri", "Namak Para", "Shakkar Para", "Masala Shankarpali", "Nimki"]
       }
     ]
   },
@@ -1074,7 +1064,6 @@
     appetizers: ["appetizers", "indo-western"].flatMap(id => MENU.find(s => s.id === id).groups.flatMap(g => g.items)),
     mithai: MENU.find(s => s.id === "mithai").groups.flatMap(g => g.items),
     beverages: MENU.find(s => s.id === "beverages").groups.flatMap(g => g.items),
-    namkeen: MENU.find(s => s.id === "namkeen").groups.flatMap(g => g.items),
     breakfast: MENU.find(s => s.id === "breakfast").groups.flatMap(g => g.items),
     any: MENU.flatMap(s => s.groups.flatMap(g => g.items))
   };
@@ -1156,7 +1145,6 @@
     ["appetizers", "Appetizer or chaat"],
     ["mithai", "Dessert"],
     ["beverages", "Drink"],
-    ["namkeen", "Namkeen"],
     ["breakfast", "Breakfast"],
     ["any", "Kuch bhi, surprise me"]
   ];
@@ -1249,7 +1237,7 @@
     if (action) {
       const name = action.dataset.action;
       if (name === "decide") {
-        const pickFrom = ["main", "appetizers", "mithai", "beverages", "namkeen"];
+        const pickFrom = ["main", "appetizers", "mithai", "beverages"];
         const craving = pickFrom[Math.floor(Math.random() * pickFrom.length)];
         state = { craving, side: craving === "main" ? "either" : null };
         result = null;
