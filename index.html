@@ -127,27 +127,44 @@
     top: 0;
     z-index: 20;
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
+    align-items: center;
     flex-wrap: wrap;
-    gap: 6px;
+    gap: 8px 24px;
     background: var(--paper);
     border-bottom: 1px solid var(--line);
-    box-shadow: 0 2px 10px rgba(43, 33, 24, 0.06);
-    padding: 10px 12px;
+    padding: 0 clamp(16px, 4vw, 40px);
+    min-height: 60px;
+  }
+  .brand {
+    font-family: "Cormorant Garamond", serif;
+    font-weight: 700;
+    font-size: 1.5rem;
+    color: var(--maroon);
+  }
+  .tab-group {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px 24px;
   }
   .tab {
     background: none;
     border: none;
-    border-radius: 999px;
-    padding: 10px 22px;
+    border-bottom: 2px solid transparent;
+    border-radius: 0;
+    padding: 20px 2px 16px;
     font: inherit;
+    font-size: 0.85rem;
     font-weight: 600;
-    color: var(--muted);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--ink);
     cursor: pointer;
   }
+  .tab:hover { color: var(--maroon); }
   .tab[aria-selected="true"] {
-    background: var(--maroon);
-    color: var(--paper);
+    color: var(--maroon);
+    border-bottom-color: var(--maroon);
   }
   .tab:focus-visible { outline: 3px solid var(--gold); outline-offset: 2px; }
 
@@ -374,13 +391,15 @@
   <h1>Shaam-e-Awadh</h1>
   <div class="tagline">Aaj khaane mein kya banega? Ghar ka khana, Nawabi andaaz mein.</div>
   <p class="intro">A collection of Nupur's Rasoi's best vegetarian dishes, from everyday home-cooked meals to Lucknowi specialties.</p>
-  <div class="stats" id="stats"></div>
 </header>
 
-<nav class="tabs" role="tablist" aria-label="Site sections">
-  <button class="tab" id="tab-pick" role="tab" aria-selected="true" aria-controls="panel-pick" data-tab="pick" type="button">Kuch Bhi</button>
-  <button class="tab" id="tab-menu" role="tab" aria-selected="false" aria-controls="panel-menu" data-tab="menu" type="button">Full menu</button>
-  <button class="tab" id="tab-chef" role="tab" aria-selected="false" aria-controls="panel-chef" data-tab="chef" type="button">About the Chef</button>
+<nav class="tabs" aria-label="Site sections">
+  <span class="brand">Shaam-e-Awadh</span>
+  <div class="tab-group" role="tablist">
+    <button class="tab" id="tab-pick" role="tab" aria-selected="true" aria-controls="panel-pick" data-tab="pick" type="button">Kuch Bhi</button>
+    <button class="tab" id="tab-menu" role="tab" aria-selected="false" aria-controls="panel-menu" data-tab="menu" type="button">Full menu</button>
+    <button class="tab" id="tab-chef" role="tab" aria-selected="false" aria-controls="panel-chef" data-tab="chef" type="button">About the Chef</button>
+  </div>
 </nav>
 
 <main>
@@ -522,15 +541,6 @@
       ]
     }
   ];
-
-  // ---------- Header stats ----------
-  const statsEl = document.getElementById("stats");
-  const totalDishes = MENU.reduce((sum, sec) => sum + sec.groups.reduce((a, g) => a + g.items.length, 0), 0);
-  const mainCount = MENU.find(s => s.id === "main").groups.reduce((a, g) => a + g.items.length, 0);
-  statsEl.innerHTML = `
-    <span class="stat">${totalDishes} dishes</span>
-    <span class="stat">${mainCount} main course options</span>
-    <span class="stat">${MENU.length} categories</span>`;
 
   // ---------- Tabs ----------
   const tabs = document.querySelectorAll(".tab");
