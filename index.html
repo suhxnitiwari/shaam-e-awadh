@@ -724,6 +724,12 @@
   .deewani-grid figure { margin: 0; }
   .deewani-grid img { display: block; width: 100%; aspect-ratio: 4 / 5; object-fit: cover; border: 4px solid var(--gold); border-radius: 200px 200px 10px 10px; }
   @media (max-width: 720px) { .deewani-grid { grid-template-columns: 1fr; } .deewani-grid img { aspect-ratio: 4 / 4.5; } }
+  /* welcome banner now sits at the top of the hero */
+  .welcome-top { position: absolute; top: 22px; left: 50%; transform: translateX(-50%); width: min(860px, calc(100% - 32px)); z-index: 2; }
+  .welcome-top .welcome-card { height: 150px; border-width: 4px; }
+  .welcome-top .welcome-text .w1 { font-size: clamp(1.2rem, 2.8vw, 1.9rem); }
+  .welcome-top .welcome-text .w2 { font-size: clamp(0.95rem, 2vw, 1.3rem); }
+  @media (max-width: 720px) { .welcome-top { top: 12px; } .welcome-top .welcome-card { height: 120px; } }
 </style>
 </head>
 <body>
@@ -739,6 +745,12 @@
 
 <header class="hero">
   <div class="cover">
+    <div class="welcome-top">
+      <div class="welcome-card">
+        <img src="images/lucknow-welcome.jpg" alt="Lucknow skyline with white domes and a clock tower">
+        <p class="welcome-text"><span class="w1">Muskuraiye aap</span><span class="w2">Nupur ki site mein hain</span></p>
+      </div>
+    </div>
     <img src="images/cover-nupur.jpg" alt="Nupur in her kitchen, stuffing cucumber cups, with a girl watching at the counter">
     <div class="cover-text">
       <h1 class="cover-title">Shaam-e-Awadh</h1>
@@ -756,12 +768,6 @@
 
 <main>
   <div id="top"></div>
-  <section class="welcome" aria-label="Welcome">
-    <div class="welcome-card">
-      <img src="images/lucknow-welcome.jpg" alt="Lucknow skyline with white domes and a clock tower">
-      <p class="welcome-text"><span class="w1">Muskuraiye aap</span><span class="w2">Nupur ki site mein hain</span></p>
-    </div>
-  </section>
   <section class="deewani" aria-labelledby="deewani-title">
     <h2 class="sec-h" id="deewani-title">Deewani mastaani</h2>
     <p class="deewani-sub">The Lucknow that inspires every dish.</p>
