@@ -10,3 +10,5 @@ All photos are from Unsplash and used under the Unsplash License.
 | Onion Pakora | `onion-pakora.jpg` | [Mustafa Fatemi](https://unsplash.com/@solaticace) on [Unsplash](https://unsplash.com/photos/a-bowl-of-french-fries-on-a-white-surface-N_3z_DjZLKg) |
 | Mixed Pakora | `mixed-pakora.jpg` | [CR](https://unsplash.com/@cr029) on [Unsplash](https://unsplash.com/photos/three-servings-of-spicy-fried-appetizers-with-dipping-sauce-rusuZLFWaBc) |
 | Pav Bhaji | `pav-bhaji.jpg` | [Md Mahdi](https://unsplash.com/@mahdi17) on [Unsplash](https://unsplash.com/photos/a-bowl-of-soup-next-to-a-bowl-of-bread-7NAweYvs9k8) |
+
+- pistachio-kulfi.jpg: photo from Kannan's Kitchen (watermarked "© Kannan's Kitchen"). Needs permission or replacement before public use.
