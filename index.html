@@ -459,8 +459,13 @@
     text-align: center;
   }
   .foot-inner {
-    max-width: 640px;
+    max-width: 960px;
     margin: 0 auto;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    justify-content: center;
+    gap: 6px 18px;
   }
   .foot-brand {
     font-family: "Cormorant Garamond", serif;
@@ -469,8 +474,8 @@
     color: var(--maroon);
   }
   .foot-line {
-    margin: 6px 0 18px;
-    opacity: 0.95;
+    margin: 0;
+    color: var(--muted);
   }
   .foot-links {
     display: flex;
