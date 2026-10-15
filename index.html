@@ -250,6 +250,48 @@
   }
   .wiz-btn-primary:hover { background: #a06a10; border-color: #a06a10; }
 
+  /* Dish photos */
+  ol.dishes li {
+    display: flex;
+    align-items: center;
+    gap: 0;
+  }
+  .thumb {
+    flex: 0 0 52px;
+    width: 52px;
+    height: 52px;
+    border-radius: 10px;
+    overflow: hidden;
+    background: var(--line);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 10px;
+    font-family: "Cormorant Garamond", serif;
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: var(--maroon);
+  }
+  .thumb img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+  .thumb.big {
+    flex: none;
+    width: 150px;
+    height: 150px;
+    margin: 0 auto 14px;
+    border: 1px solid var(--line);
+    font-size: 3rem;
+  }
+  .thumb.no-photo {
+    background: var(--cream);
+    border: 1px solid var(--line);
+  }
+  .dish-name { flex: 1; min-width: 0; }
+
   /* Family favorites */
   .favorites {
     background: var(--paper);
@@ -577,6 +619,35 @@
     return choice;
   }
 
+  // ---------- Dish photos ----------
+  // Photos live in images/dishes/<dish-name>.jpg (see images/dishes/README.md).
+  // If a photo is missing, a cream tile with the dish's first letter shows instead.
+  function dishSlug(name) {
+    return name
+      .toLowerCase()
+      .normalize("NFD").replace(/[̀-ͯ]/g, "")
+      .replace(/\(.*?\)/g, "")
+      .replace(/&/g, "and")
+      .replace(/[^a-z0-9]+/g, "-")
+      .replace(/^-+|-+$/g, "");
+  }
+
+  function dishPhoto(name, extraClass) {
+    const wrap = document.createElement("span");
+    wrap.className = extraClass;
+    const img = document.createElement("img");
+    img.src = `images/dishes/${dishSlug(name)}.jpg`;
+    img.alt = name;
+    img.loading = "lazy";
+    img.onerror = () => {
+      img.remove();
+      wrap.classList.add("no-photo");
+      wrap.textContent = name.charAt(0);
+    };
+    wrap.appendChild(img);
+    return wrap;
+  }
+
   // ---------- Kuch Bhi wizard ----------
   const wizardEl = document.getElementById("wizard");
   let state = { craving: null, side: null };
@@ -636,6 +707,7 @@
         ${resultActions()}`;
       wizardEl.querySelector(".pick-dish").textContent = dish;
       wizardEl.querySelector(".side-name").textContent = side;
+      wizardEl.querySelector(".pick-dish").before(dishPhoto(dish, "thumb big"));
     } else {
       const pool = pools[state.craving];
       const dish = pickOne(pool, result && result.dish);
@@ -646,6 +718,7 @@
         <div class="pick-dish"></div>
         ${resultActions()}`;
       wizardEl.querySelector(".pick-dish").textContent = dish;
+      wizardEl.querySelector(".pick-dish").before(dishPhoto(dish, "thumb big"));
     }
   }
 
@@ -720,7 +793,10 @@
         const num = document.createElement("span");
         num.className = "n";
         num.textContent = `${counter}.`;
-        li.append(num, document.createTextNode(item));
+        const label = document.createElement("span");
+        label.className = "dish-name";
+        label.textContent = item;
+        li.append(dishPhoto(item, "thumb"), num, label);
         list.appendChild(li);
       });
       sectionEl.appendChild(list);
