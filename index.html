@@ -1053,6 +1053,16 @@
         items: ["Masala Chai", "Latte", "Hot Coffee", "Mango Lassi", "Cold Coffee"]
       }
     ]
+  },
+  {
+    id: "breakfast",
+    title: "Breakfast",
+    groups: [
+      {
+        name: "",
+        items: ["Poha"]
+      }
+    ]
   }
 ];
 
@@ -1065,6 +1075,7 @@
     mithai: MENU.find(s => s.id === "mithai").groups.flatMap(g => g.items),
     beverages: MENU.find(s => s.id === "beverages").groups.flatMap(g => g.items),
     namkeen: MENU.find(s => s.id === "namkeen").groups.flatMap(g => g.items),
+    breakfast: MENU.find(s => s.id === "breakfast").groups.flatMap(g => g.items),
     any: MENU.flatMap(s => s.groups.flatMap(g => g.items))
   };
 
@@ -1146,6 +1157,7 @@
     ["mithai", "Dessert"],
     ["beverages", "Drink"],
     ["namkeen", "Namkeen"],
+    ["breakfast", "Breakfast"],
     ["any", "Kuch bhi, surprise me"]
   ];
   const SIDES = [
