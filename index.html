@@ -250,6 +250,39 @@
   }
   .wiz-btn-primary:hover { background: #a06a10; border-color: #a06a10; }
 
+  /* Home page teasers */
+  .teasers {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 14px;
+    margin-bottom: 28px;
+  }
+  .teaser {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 4px;
+    text-align: left;
+    background: var(--paper);
+    border: 1px solid var(--line);
+    border-radius: 18px;
+    padding: 20px 22px;
+    font: inherit;
+    cursor: pointer;
+  }
+  .teaser:hover { border-color: var(--saffron); }
+  .teaser:focus-visible { outline: 3px solid var(--gold); outline-offset: 2px; }
+  .teaser-title {
+    font-family: "Cormorant Garamond", serif;
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--maroon);
+  }
+  .teaser-sub {
+    color: var(--muted);
+    font-size: 0.92rem;
+  }
+
   /* Dish photos: Pinterest-style staggered grid */
   ol.dishes {
     display: block;
@@ -512,7 +545,7 @@
 <nav class="tabs" aria-label="Site sections">
   <span class="brand">Shaam-e-Awadh</span>
   <div class="tab-group" role="tablist">
-    <button class="tab" id="tab-pick" role="tab" aria-selected="true" aria-controls="panel-pick" data-tab="pick" type="button">Kuch Bhi</button>
+    <button class="tab" id="tab-pick" role="tab" aria-selected="true" aria-controls="panel-pick" data-tab="pick" type="button">Home</button>
     <button class="tab" id="tab-menu" role="tab" aria-selected="false" aria-controls="panel-menu" data-tab="menu" type="button">Full menu</button>
     <button class="tab" id="tab-chef" role="tab" aria-selected="false" aria-controls="panel-chef" data-tab="chef" type="button">About the Chef</button>
   </div>
@@ -529,10 +562,7 @@
   <!-- Tab 1: Kuch Bhi wizard -->
   <div id="panel-pick" role="tabpanel" aria-labelledby="tab-pick">
     <div class="wizard" id="wizard" aria-live="polite"></div>
-  </div>
 
-  <!-- Tab 2: Full menu -->
-  <div id="panel-menu" role="tabpanel" aria-labelledby="tab-menu" class="hidden">
     <section class="favorites" aria-labelledby="fav-title">
       <h2 id="fav-title">Family Favorites</h2>
       <p class="fav-sub">The ones everyone asks for.</p>
@@ -543,6 +573,21 @@
         <div class="fav-card">Pav Bhaji</div>
       </div>
     </section>
+
+    <div class="teasers">
+      <button class="teaser" type="button" data-go="menu">
+        <span class="teaser-title">Browse the full menu</span>
+        <span class="teaser-sub">Every dish, grouped and searchable</span>
+      </button>
+      <button class="teaser" type="button" data-go="chef">
+        <span class="teaser-title">Meet Nupur</span>
+        <span class="teaser-sub">The cook behind the recipes</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- Tab 2: Full menu -->
+  <div id="panel-menu" role="tabpanel" aria-labelledby="tab-menu" class="hidden">
     <input class="search" id="search" type="search" placeholder="Search a dish, like paneer or chaat" aria-label="Search dishes">
     <nav class="jump" id="jump"></nav>
     <div id="menu"></div>
@@ -670,6 +715,13 @@
   ];
 
   // ---------- Tabs ----------
+  document.querySelectorAll(".teaser[data-go]").forEach(btn => {
+    btn.addEventListener("click", () => {
+      document.getElementById(`tab-${btn.dataset.go}`).click();
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    });
+  });
+
   const tabs = document.querySelectorAll(".tab");
   const panels = {
     pick: document.getElementById("panel-pick"),
