@@ -14,3 +14,5 @@ All photos are from Unsplash and used under the Unsplash License.
 - pistachio-kulfi.jpg: photo from Kannan's Kitchen (watermarked "© Kannan's Kitchen"). Needs permission or replacement before public use.
 
 - jalebi.jpg: photo from Greedyeats.com (watermarked "Greedyeats.com"). Needs permission or replacement before public use.
+
+- hara-bhara-kebab.jpg: photo from Swasthi's Recipes (watermarked "SWASTHI'S RECIPES"). Needs permission or replacement before public use.
