@@ -714,12 +714,6 @@
           <strong>Nupur at work.</strong> Every dish on this menu starts at her stove.
         </figcaption>
       </figure>
-      <figure class="tasters">
-        <img src="images/tasters.jpg" alt="Two girls sipping iced coffee through straws in a kitchen" loading="lazy">
-        <figcaption>
-          <strong>Her tasters.</strong> They give feedback on every batch and help her improve over multiple rounds. Here they are hard at work, master-tasting her cold coffee.
-        </figcaption>
-      </figure>
     </article>
   </section>
 
@@ -735,10 +729,15 @@
           <img src="images/team-amaira-2.jpg" alt="Amaira sitting on the floor, mixing batter in a steel bowl" loading="lazy">
           <figcaption><strong>Amaira</strong>, Mumma's assistant. Mixing the batter by hand.</figcaption>
         </figure>
+      
+        <figure class="slide">
+          <img src="images/tasters.jpg" alt="Two girls sipping iced coffee through straws in a kitchen" loading="lazy">
+          <figcaption><strong>Her tasters.</strong> They give feedback on every batch and help her improve over multiple rounds. Here they are hard at work, master-tasting her cold coffee.</figcaption>
+        </figure>
       </div>
       <div class="car-controls">
         <button class="car-btn car-prev" type="button" aria-label="Previous photo">&#8249;</button>
-        <span class="car-count" aria-live="polite">1 of 2</span>
+        <span class="car-count" aria-live="polite">1 of 3</span>
         <button class="car-btn car-next" type="button" aria-label="Next photo">&#8250;</button>
       </div>
     </div>
@@ -1303,6 +1302,7 @@
       slides.forEach((el, k) => el.classList.toggle("active", k === i));
       count.textContent = `${i + 1} of ${slides.length}`;
     }
+    show(0);
     root.querySelector(".car-prev").addEventListener("click", () => show(i - 1));
     root.querySelector(".car-next").addEventListener("click", () => show(i + 1));
   })();
