@@ -303,7 +303,6 @@
     display: flex;
     width: 100%;
     height: auto;
-    aspect-ratio: 4 / 5;
     flex: none;
     margin: 0;
     border-radius: 0;
@@ -769,9 +768,16 @@
       .replace(/^-+|-+$/g, "");
   }
 
+  // Pinterest-style: each card gets its own height, picked from a few shapes by its name.
+  const CARD_SHAPES = [0.75, 0.9, 0.66, 1, 0.8];
+
   function dishPhoto(name, extraClass) {
     const wrap = document.createElement("span");
     wrap.className = extraClass;
+    if (extraClass === "thumb") {
+      const seed = [...name].reduce((a, c) => a + c.charCodeAt(0), 0);
+      wrap.style.aspectRatio = String(CARD_SHAPES[seed % CARD_SHAPES.length]);
+    }
     const img = document.createElement("img");
     img.src = `images/dishes/${dishSlug(name)}.jpg`;
     img.alt = name;
