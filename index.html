@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Shaam-e-Awadh</title>
+<meta name="description" content="A family collection of vegetarian dishes, from everyday home-cooked meals to Lucknowi specialties.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,700;1,500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --cream: #fbf6ee;
+    --paper: #fffdf9;
+    --maroon: #6b1d2a;
+    --saffron: #b87a14;
+    --gold: #f0c773;
+    --ink: #2b2118;
+    --muted: #7a6b5d;
+    --line: #eadfce;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--cream);
+    color: var(--ink);
+    font-family: Inter, system-ui, -apple-system, sans-serif;
+    line-height: 1.5;
+  }
+  header {
+    background: var(--maroon);
+    color: var(--cream);
+    text-align: center;
+    padding: 56px 20px 44px;
+  }
+  header h1 {
+    font-family: "Cormorant Garamond", serif;
+    font-size: clamp(2.4rem, 7vw, 3.6rem);
+    font-weight: 700;
+    margin: 0;
+    letter-spacing: 0.02em;
+  }
+  .tagline {
+    font-family: "Cormorant Garamond", serif;
+    font-style: italic;
+    font-size: 1.3rem;
+    color: var(--gold);
+    margin: 6px 0 14px;
+  }
+  header p.intro {
+    max-width: 560px;
+    margin: 0 auto;
+    opacity: 0.92;
+  }
+  .stats {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: center;
+    margin-top: 24px;
+  }
+  .stat {
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.22);
+    border-radius: 999px;
+    padding: 6px 14px;
+    font-size: 0.9rem;
+  }
+  main {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 28px 18px 60px;
+  }
+  .search {
+    display: block;
+    width: 100%;
+    max-width: 420px;
+    margin: 0 auto 26px;
+    padding: 12px 18px;
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    background: var(--paper);
+    font: inherit;
+    color: var(--ink);
+  }
+  .search:focus { outline: 2px solid var(--gold); border-color: transparent; }
+  .jump {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    justify-content: center;
+    margin-bottom: 26px;
+  }
+  .jump a {
+    color: var(--maroon);
+    text-decoration: none;
+    border: 1px solid var(--line);
+    background: var(--paper);
+    border-radius: 999px;
+    padding: 5px 12px;
+    font-size: 0.88rem;
+  }
+  .jump a:hover { border-color: var(--saffron); }
+  section.cat {
+    background: var(--paper);
+    border: 1px solid var(--line);
+    border-radius: 16px;
+    padding: 24px;
+    margin-bottom: 24px;
+    scroll-margin-top: 16px;
+  }
+  section.cat h2 {
+    font-family: "Cormorant Garamond", serif;
+    color: var(--maroon);
+    font-size: 2rem;
+    margin: 0;
+  }
+  .count {
+    color: var(--muted);
+    font-size: 0.9rem;
+    margin: 2px 0 12px;
+  }
+  h3.group {
+    font-size: 0.82rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--saffron);
+    font-weight: 600;
+    margin: 22px 0 10px;
+  }
+  ol.dishes {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+    gap: 8px 12px;
+  }
+  ol.dishes li {
+    background: var(--cream);
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    padding: 9px 12px;
+    font-size: 0.95rem;
+  }
+  ol.dishes .n {
+    color: var(--saffron);
+    font-weight: 600;
+    margin-right: 6px;
+    font-variant-numeric: tabular-nums;
+  }
+  .hidden { display: none !important; }
+  .empty {
+    text-align: center;
+    color: var(--muted);
+    padding: 30px 0;
+  }
+  footer {
+    text-align: center;
+    color: var(--muted);
+    font-size: 0.85rem;
+    padding: 10px 20px 36px;
+  }
+  @media (max-width: 480px) {
+    section.cat { padding: 18px; }
+    ol.dishes { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>Shaam-e-Awadh</h1>
+  <div class="tagline">Aaj khaane mein kya banega? Ghar ka khana, Nawabi andaaz mein.</div>
+  <p class="intro">A collection of our family's favorite vegetarian dishes, from everyday home-cooked meals to Lucknowi specialties.</p>
+  <div class="stats" id="stats"></div>
+</header>
+
+<main>
+  <input class="search" id="search" type="search" placeholder="Search a dish, like paneer or chaat" aria-label="Search dishes">
+  <nav class="jump" id="jump"></nav>
+  <div id="menu"></div>
+  <div class="empty hidden" id="empty">No dishes match that search.</div>
+</main>
+
+<footer>Shaam-e-Awadh. Made with love for family dinners.</footer>
+
+<script>
+  // Edit this list to change the menu. Counts and numbering update automatically.
+  const MENU = [
+    {
+      id: "appetizers",
+      title: "Appetizers & Chaat",
+      icon: "🥟",
+      groups: [
+        { name: "", items: [
+          "Pani Puri", "Dahi Puri", "Samosa", "Aloo Tikki Chaat", "Moonglet",
+          "Bread Rolls", "Paneer Pakora", "Onion Pakora", "Mixed Pakora", "Pav Bhaji",
+          "Dahi Kebab", "Veg Galouti Kebab", "Hara Bhara Kebab", "Sabudana Vada", "Masala Papad",
+          "Cheese Corn Toast", "Jalapeño Cheese Poppers", "Monaco Creamy Yogurt Bites", "Mango Salsa", "Guacamole & Chips",
+          "Red Sauce Pasta", "Tomato Soup"
+        ]}
+      ]
+    },
+    {
+      id: "main",
+      title: "Main Course",
+      icon: "🍛",
+      groups: [
+        { name: "Paneer Special", items: [
+          "Matar Paneer", "Shahi Paneer", "Palak Paneer", "Paneer Butter Masala", "Paneer Lababdar",
+          "Kadai Paneer", "Paneer Bhurji", "Paneer Tikka Masala", "Paneer Jalfrezi"
+        ]},
+        { name: "Aloo Special", items: [
+          "Aloo Gobi", "Aloo Gobi Matar", "Aloo Pyaz", "Aloo Methi", "Dum Aloo",
+          "Aloo Tamatar", "Masala Aloo", "Banarasi Aloo", "Bari Aloo Matar Tamatar", "Aloo Matar",
+          "Aloo Baingan", "Palak Aloo"
+        ]},
+        { name: "Ghar Ki Sabziyan", items: [
+          "Mixed Vegetables", "Baingan Ka Bharta", "Kaddu Ki Sabzi", "Torai Ki Sabzi", "Lauki Ki Sabzi",
+          "Guar Phali", "French Beans", "Cabbage Ki Sabzi", "Arbi Mumtaz", "Gatte Ki Sabzi",
+          "Nimona (Seasonal)", "Sarson Ka Saag (Seasonal)", "Bhindi Masala", "Gobi Matar", "Veg Jalfrezi"
+        ]},
+        { name: "Kofta & Special Curries", items: [
+          "Zafrani Kofta", "Malai Kofta", "Vegetable Korma", "Navratan Korma", "Methi Matar Malai"
+        ]},
+        { name: "Dal, Chole & Rajma", items: [
+          "Mixed Dal", "Masoor Dal", "Dal Tadka", "Dal Makhani", "Dal Baati",
+          "Dal Palak", "Rajma", "Chole", "Punjabi Kadhi", "Lobia Masala"
+        ]}
+      ]
+    },
+    {
+      id: "breads",
+      title: "Roti, Paratha, Puri & Kachori",
+      icon: "🫓",
+      groups: [
+        { name: "", items: [
+          "Stuffed Paratha", "Aloo Paratha", "Palak Paratha", "Gobi Paratha", "Mooli Paratha",
+          "Paneer Paratha", "Dal Ki Kachori", "Bedmi Puri", "Sheermal"
+        ]}
+      ]
+    },
+    {
+      id: "rice",
+      title: "Rice & Biryani",
+      icon: "🍚",
+      groups: [
+        { name: "", items: [
+          "Plain Rice", "Jeera Rice", "Matar Rice", "Tehri", "Lucknowi Vegetable Biryani",
+          "Kashmiri Pulao", "Zafrani Pulao"
+        ]}
+      ]
+    },
+    {
+      id: "mithai",
+      title: "Mithai & Desserts",
+      icon: "🍮",
+      groups: [
+        { name: "", items: [
+          "Shahi Tukda", "Gulab Jamun", "Jalebi", "Rabri", "Gajar Ka Halwa",
+          "Kulfi", "Kulfi Falooda"
+        ]}
+      ]
+    },
+    {
+      id: "beverages",
+      title: "Beverages",
+      icon: "☕",
+      groups: [
+        { name: "", items: ["Masala Chai", "Mango Lassi"] }
+      ]
+    },
+    {
+      id: "namkeen",
+      title: "Namkeen",
+      icon: "🥨",
+      groups: [
+        { name: "", items: [
+          "Aloo Bhujia", "Bikaneri Bhujia", "Ratlami Sev", "Plain Sev", "Khatta Meetha Mixture",
+          "Navratan Mixture", "Dal Moth", "Moong Dal Namkeen", "Chana Dal Namkeen", "Masala Peanuts",
+          "Hing Chana", "Mathri", "Methi Mathri", "Namak Para", "Shakkar Para",
+          "Masala Shankarpali", "Nimki", "Masala Makhana", "Chivda", "Murmura Namkeen"
+        ]}
+      ]
+    }
+  ];
+
+  const menuEl = document.getElementById("menu");
+  const jumpEl = document.getElementById("jump");
+  const statsEl = document.getElementById("stats");
+  const searchEl = document.getElementById("search");
+  const emptyEl = document.getElementById("empty");
+
+  const allGroups = [];   // { heading, list, sectionEl }
+  let counter = 0;
+  const totalDishes = MENU.reduce((sum, sec) => sum + sec.groups.reduce((a, g) => a + g.items.length, 0), 0);
+  const mainCount = MENU.find(s => s.id === "main").groups.reduce((a, g) => a + g.items.length, 0);
+
+  statsEl.innerHTML = `
+    <span class="stat">${totalDishes} dishes</span>
+    <span class="stat">${mainCount} main course options</span>
+    <span class="stat">${MENU.length} categories</span>`;
+
+  MENU.forEach(sec => {
+    const count = sec.groups.reduce((a, g) => a + g.items.length, 0);
+
+    const link = document.createElement("a");
+    link.href = `#${sec.id}`;
+    link.textContent = sec.title;
+    jumpEl.appendChild(link);
+
+    const sectionEl = document.createElement("section");
+    sectionEl.className = "cat";
+    sectionEl.id = sec.id;
+    sectionEl.innerHTML = `<h2>${sec.icon} ${sec.title}</h2><div class="count">${count} dishes</div>`;
+
+    sec.groups.forEach(group => {
+      let heading = null;
+      if (group.name) {
+        heading = document.createElement("h3");
+        heading.className = "group";
+        heading.textContent = `${group.name} (${group.items.length})`;
+        sectionEl.appendChild(heading);
+      }
+
+      const list = document.createElement("ol");
+      list.className = "dishes";
+      group.items.forEach(item => {
+        counter += 1;
+        const li = document.createElement("li");
+        li.dataset.name = item.toLowerCase();
+        const num = document.createElement("span");
+        num.className = "n";
+        num.textContent = `${counter}.`;
+        li.append(num, document.createTextNode(item));
+        list.appendChild(li);
+      });
+      sectionEl.appendChild(list);
+      allGroups.push({ heading, list, sectionEl });
+    });
+
+    menuEl.appendChild(sectionEl);
+  });
+
+  searchEl.addEventListener("input", () => {
+    const q = searchEl.value.trim().toLowerCase();
+    let anyVisible = false;
+
+    allGroups.forEach(({ heading, list, sectionEl }) => {
+      let groupVisible = 0;
+      list.querySelectorAll("li").forEach(li => {
+        const show = !q || li.dataset.name.includes(q);
+        li.classList.toggle("hidden", !show);
+        if (show) groupVisible += 1;
+      });
+      list.classList.toggle("hidden", groupVisible === 0);
+      if (heading) heading.classList.toggle("hidden", groupVisible === 0);
+      sectionEl.classList.toggle("hidden", groupVisible === 0);
+      if (groupVisible > 0) anyVisible = true;
+    });
+
+    emptyEl.classList.toggle("hidden", anyVisible);
+  });
+</script>
+</body>
+</html>
