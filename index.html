@@ -941,15 +941,12 @@
         counter += 1;
         const li = document.createElement("li");
         li.dataset.name = item.toLowerCase();
-        const num = document.createElement("span");
-        num.className = "n";
-        num.textContent = `${counter}.`;
         const label = document.createElement("span");
         label.className = "dish-name";
         label.textContent = item;
         const caption = document.createElement("div");
         caption.className = "caption";
-        caption.append(num, label);
+        caption.append(label);
         li.append(dishPhoto(item, "thumb"), caption);
         list.appendChild(li);
       });
