@@ -897,6 +897,14 @@
   .dabba.open .dabba-lid { transform: translate(118%, -6%) rotate(16deg); opacity: 0; }
   ol.sec-col > li.dish > .thumb { display: block !important; height: auto !important; }
   ol.sec-col > li.dish > .thumb > img { height: var(--ph, 200px) !important; }
+  /* Board cards keep their own border and background */
+  ol.sec-col > li.dish { border: 1px solid #DCBDB6; border-radius: 10px; box-shadow: 0 1px 3px rgba(30,16,10,0.10); background: #FFFDF9; overflow: hidden; }
+  ol.sec-col > li.dish .caption { margin-top: 0; }
+  /* Board cards: photo fills the card's flexible height, caption sits under it */
+  ol.sec-col > li.dish { display: flex; flex-direction: column; }
+  ol.sec-col > li.dish > .thumb { position: relative; display: block; flex: 1 1 var(--ph, 200px) !important; height: auto !important; min-height: 0; overflow: hidden; }
+  ol.sec-col > li.dish > .thumb > img { position: absolute; inset: 0; width: 100% !important; height: 100% !important; object-fit: cover; }
+  ol.sec-col > li.dish > .caption { flex: none; height: auto; }
 </style>
 </head>
 <body>
@@ -1374,6 +1382,10 @@
   // Board layout: dishes are dealt into columns (shortest column first), photo heights vary,
   // and each column's last photo stretches so every column ends on the same bottom line.
   function layoutBoards() {
+    const setPh = (li, px) => {
+      li.style.setProperty("--ph", px + "px");
+      li.style.removeProperty("height");
+    };
     const cols = window.matchMedia("(max-width: 720px)").matches ? 2 : 4;
     const GAP = 16, CAPTION = 70;
     document.querySelectorAll("ol.sec-row").forEach(row => {
@@ -1398,9 +1410,9 @@
         c.items.forEach((li, i) => {
           if (i === c.items.length - 1 && c.items.length) {
             const used = c.total - GAP;
-            li.style.setProperty("--ph", (li._base + (target - used)) + "px");
+            setPh(li, li._base + (target - used));
           } else {
-            li.style.setProperty("--ph", li._base + "px");
+            setPh(li, li._base);
           }
           c.el.appendChild(li);
         });
@@ -1418,8 +1430,7 @@
         ends.forEach(e => {
           const d = Math.round(maxBottom - e.bottom);
           if (d > 0) {
-            const cur = parseInt(e.last.style.getPropertyValue("--ph"), 10) || 200;
-            e.last.style.setProperty("--ph", (cur + d) + "px");
+            e.last.style.setProperty("height", (e.last.getBoundingClientRect().height + d) + "px", "important");
             changed = true;
           }
         });
