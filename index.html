@@ -820,7 +820,7 @@
   .foot-banner { margin: 0; max-width: none; padding: 7px 16px; border: 0; border-radius: 0; background: #6b1d2a; text-align: center; color: #fff; line-height: 1.2; }
   .foot-banner .fb1, .foot-banner .fb2 { display: inline; margin: 0; font-size: 0.85rem; text-transform: none; letter-spacing: 0.04em; font-weight: 400; }
   .foot-banner .fb1 { font-style: italic; }
-  .foot-banner .fb1::after { content: "  ·  "; font-style: normal; }
+  .foot-banner .fb1::after { content: "\00a0\00a0\00a0\00a0"; font-style: normal; }
   .foot-banner .fb2 { text-transform: uppercase; letter-spacing: 0.12em; font-weight: 700; font-size: 0.75rem; }
   /* Meet Nupur photo: fixed, shorter frame with her face kept in view */
   .chef-section .chef > img { width: 100% !important; height: 800px !important; max-height: 800px !important; object-fit: cover !important; object-position: 50% 20% !important; }
@@ -882,12 +882,21 @@
   ol.sec-row > li.dish .thumb img { width: 100% !important; height: 200px !important; max-height: none !important; object-fit: cover; display: block; }
   ol.sec-row > li.dish .caption { flex: none; height: 70px; overflow: hidden; box-sizing: border-box; }
   ol.sec-row > li.dish .dish-name { display: block; white-space: normal; }
-  /* Pinterest board: staggered photo heights, captions and card bottoms line up on each line */
-  ol.sec-row { flex-wrap: wrap; overflow: visible; scroll-snap-type: none; gap: 20px 16px; padding: 4px 0 12px; }
-  ol.sec-row > li.dish { flex: 0 0 200px; width: 200px; display: flex; flex-direction: column; align-items: stretch; }
-  ol.sec-row > li.dish .thumb { height: var(--ph, 200px) !important; }
-  ol.sec-row > li.dish .thumb img { height: var(--ph, 200px) !important; }
-  ol.sec-row > li.dish .caption { flex: none; height: auto; margin-top: auto; }
+  /* Pinterest board: columns of staggered photos; every column ends on the same bottom line */
+  ol.sec-row { display: flex; align-items: stretch; gap: 16px; overflow: visible; list-style: none; margin: 0; padding: 4px 0 12px; scroll-snap-type: none; }
+  ol.sec-col { flex: 1 1 0; min-width: 0; display: flex; flex-direction: column; gap: 16px; list-style: none; margin: 0; padding: 0; }
+  ol.sec-col > li.dish { flex: none; width: 100%; margin: 0; display: flex; flex-direction: column; align-items: stretch; }
+  ol.sec-col > li.dish .thumb { height: var(--ph, 200px) !important; }
+  ol.sec-col > li.dish .thumb img { height: var(--ph, 200px) !important; }
+  ol.sec-col > li.dish .caption { flex: none; height: auto; min-height: 56px; }
+  ol.sec-col > li.dish.hidden { display: none !important; }
+  /* Board photos fill their set height; spice box lid slides off to the right */
+  ol.sec-col > li.dish .thumb { display: block !important; overflow: hidden; }
+  ol.sec-col > li.dish .thumb img { display: block; width: 100% !important; height: var(--ph, 200px) !important; max-height: none !important; object-fit: cover; }
+  .dabba .dabba-lid { transform-origin: 100% 50%; }
+  .dabba.open .dabba-lid { transform: translate(118%, -6%) rotate(16deg); opacity: 0; }
+  ol.sec-col > li.dish > .thumb { display: block !important; height: auto !important; }
+  ol.sec-col > li.dish > .thumb > img { height: var(--ph, 200px) !important; }
 </style>
 </head>
 <body>
@@ -1354,6 +1363,7 @@
         li.append(dishPhoto(item, "thumb"), caption);
         li.style.setProperty("--ph", [170, 230, 200, 260, 180, 220][(counter - 1) % 6] + "px");
         target.appendChild(li);
+        (target._dishes ??= []).push(li);
         dishes.push(li);
       });
       groups.push({ gh, dishes });
@@ -1361,6 +1371,65 @@
     sectionsIdx.push({ head, groups });
   });
 
+  // Board layout: dishes are dealt into columns (shortest column first), photo heights vary,
+  // and each column's last photo stretches so every column ends on the same bottom line.
+  function layoutBoards() {
+    const cols = window.matchMedia("(max-width: 720px)").matches ? 2 : 4;
+    const GAP = 16, CAPTION = 70;
+    document.querySelectorAll("ol.sec-row").forEach(row => {
+      const all = row._dishes || [];
+      row.replaceChildren();
+      const columns = Array.from({ length: cols }, () => {
+        const c = document.createElement("ol");
+        c.className = "sec-col";
+        row.appendChild(c);
+        return { el: c, items: [], total: 0 };
+      });
+      const visible = all.filter(li => !li.classList.contains("hidden"));
+      visible.forEach(li => {
+        const h = parseInt(li.style.getPropertyValue("--ph"), 10) || 200;
+        li._base = h;
+        const col = columns.reduce((a, b) => (b.total < a.total ? b : a));
+        col.total += h + CAPTION + GAP;
+        col.items.push(li);
+      });
+      const target = Math.max(0, ...columns.map(c => c.total - GAP));
+      columns.forEach(c => {
+        c.items.forEach((li, i) => {
+          if (i === c.items.length - 1 && c.items.length) {
+            const used = c.total - GAP;
+            li.style.setProperty("--ph", (li._base + (target - used)) + "px");
+          } else {
+            li.style.setProperty("--ph", li._base + "px");
+          }
+          c.el.appendChild(li);
+        });
+      });
+      all.filter(li => li.classList.contains("hidden")).forEach(li => columns[0].el.appendChild(li));
+      // Measure the real bottoms and top up each short column's last photo until they line up
+      for (let pass = 0; pass < 3; pass++) {
+        const ends = columns.map(c => {
+          const last = [...c.el.children].filter(li => getComputedStyle(li).display !== "none").pop();
+          return last ? { last, bottom: last.getBoundingClientRect().bottom } : null;
+        }).filter(Boolean);
+        if (ends.length < 2) break;
+        const maxBottom = Math.max(...ends.map(e => e.bottom));
+        let changed = false;
+        ends.forEach(e => {
+          const d = Math.round(maxBottom - e.bottom);
+          if (d > 0) {
+            const cur = parseInt(e.last.style.getPropertyValue("--ph"), 10) || 200;
+            e.last.style.setProperty("--ph", (cur + d) + "px");
+            changed = true;
+          }
+        });
+        if (!changed) break;
+      }
+    });
+  }
+  layoutBoards();
+  window.matchMedia("(max-width: 720px)").addEventListener("change", layoutBoards);
+  searchEl.addEventListener("input", () => setTimeout(layoutBoards, 0));
   searchEl.addEventListener("input", () => {
     const q = searchEl.value.trim().toLowerCase();
     let anyVisible = false;
