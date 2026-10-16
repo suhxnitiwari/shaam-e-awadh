@@ -882,6 +882,12 @@
   ol.sec-row > li.dish .thumb img { width: 100% !important; height: 200px !important; max-height: none !important; object-fit: cover; display: block; }
   ol.sec-row > li.dish .caption { flex: none; height: 70px; overflow: hidden; box-sizing: border-box; }
   ol.sec-row > li.dish .dish-name { display: block; white-space: normal; }
+  /* Pinterest board: staggered photo heights, captions and card bottoms line up on each line */
+  ol.sec-row { flex-wrap: wrap; overflow: visible; scroll-snap-type: none; gap: 20px 16px; padding: 4px 0 12px; }
+  ol.sec-row > li.dish { flex: 0 0 200px; width: 200px; display: flex; flex-direction: column; align-items: stretch; }
+  ol.sec-row > li.dish .thumb { height: var(--ph, 200px) !important; }
+  ol.sec-row > li.dish .thumb img { height: var(--ph, 200px) !important; }
+  ol.sec-row > li.dish .caption { flex: none; height: auto; margin-top: auto; }
 </style>
 </head>
 <body>
@@ -1346,6 +1352,7 @@
         caption.className = "caption";
         caption.append(label);
         li.append(dishPhoto(item, "thumb"), caption);
+        li.style.setProperty("--ph", [170, 230, 200, 260, 180, 220][(counter - 1) % 6] + "px");
         target.appendChild(li);
         dishes.push(li);
       });
