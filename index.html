@@ -831,16 +831,28 @@
   .wiz-btn-big:hover { background: #652F3A; }
   .wiz-btn-big:focus-visible { outline: 3px solid #D9A441; outline-offset: 3px; }
   @media (max-width: 720px) { .wiz-btn-big { width: 100%; font-size: 1.15rem; padding: 16px 20px; } }
-  /* Her spice box: a round masala dabba with tappable tins */
+  /* Her spice box: a steel masala dabba. Tap the lid to open it, then tap a katori */
   .spice-box { text-align: center; }
-  .dabba { position: relative; width: min(340px, 90%); aspect-ratio: 1; margin: 18px auto 14px; border-radius: 50%; background: radial-gradient(circle at 35% 30%, #f7f4ee, #c9ccd1 55%, #9aa0a8); box-shadow: 0 8px 22px rgba(30,16,10,0.22), inset 0 0 0 6px #e9ebee; }
-  .dabba-rim { position: absolute; inset: 6%; border-radius: 50%; border: 2px solid rgba(255,255,255,0.6); }
-  .dabba-knob { position: absolute; left: 50%; top: 50%; width: 22%; height: 22%; transform: translate(-50%, -50%); border-radius: 50%; background: radial-gradient(circle at 35% 30%, #fff, #b9bec6 60%, #7f868f); box-shadow: 0 2px 6px rgba(0,0,0,0.25); }
-  .tin { position: absolute; width: 30%; aspect-ratio: 1; transform: translate(-50%, -50%); border: 3px solid #d9dde2; border-radius: 50%; cursor: pointer; background: radial-gradient(circle at 38% 32%, rgba(255,255,255,0.35), var(--c) 55%, color-mix(in srgb, var(--c) 70%, #000) 100%); box-shadow: 0 3px 8px rgba(0,0,0,0.28), inset 0 2px 6px rgba(0,0,0,0.25); transition: transform 0.15s ease, box-shadow 0.15s ease; padding: 0; }
-  .tin:hover { transform: translate(-50%, -50%) scale(1.07); }
-  .tin:focus-visible { outline: 3px solid #D9A441; outline-offset: 4px; }
-  .tin.active { box-shadow: 0 0 0 4px #D9A441, 0 3px 8px rgba(0,0,0,0.28); }
+  .dabba { position: relative; width: min(340px, 90%); aspect-ratio: 1; margin: 18px auto 14px; border-radius: 50%; background: radial-gradient(circle at 32% 26%, #ffffff, #d5d9df 40%, #aab0b9 75%, #7c838d); box-shadow: 0 16px 28px rgba(30,16,10,0.32), 0 3px 6px rgba(30,16,10,0.2), inset 0 0 0 10px #b48a45, inset 0 0 0 13px rgba(255,240,200,0.5); }
+  .dabba-base { position: absolute; inset: 9%; border-radius: 50%; background: radial-gradient(circle at 40% 35%, #f3f4f6, #c4c9d0 60%, #959ca6); box-shadow: inset 0 4px 10px rgba(0,0,0,0.25); }
+  .dabba-close { position: absolute; left: 50%; top: 50%; width: 20%; height: 20%; transform: translate(-50%,-50%); z-index: 2; border: none; padding: 0; border-radius: 50%; cursor: pointer; background: radial-gradient(circle at 38% 32%, #ffffff, #cfd4db 55%, #8e959f); box-shadow: 0 3px 6px rgba(0,0,0,0.25), inset 0 -3px 6px rgba(0,0,0,0.12); opacity: 0; pointer-events: none; transition: opacity .4s; }
+  .dabba.open .dabba-close { opacity: 1; pointer-events: auto; }
+  .tin { position: absolute; z-index: 1; width: 27%; aspect-ratio: 1; transform: translate(-50%, -50%) scale(0.6); opacity: 0; pointer-events: none; border: none; border-radius: 50%; cursor: pointer; padding: 0; background: radial-gradient(circle at 38% 32%, rgba(255,255,255,0.45), rgba(255,255,255,0) 38%), radial-gradient(circle, var(--c) 55%, color-mix(in srgb, var(--c) 65%, #000) 100%); box-shadow: 0 0 0 5px #d9dde2, 0 0 0 7px #9aa1ab, inset 0 4px 8px rgba(0,0,0,0.35), 0 5px 9px rgba(0,0,0,0.3); transition: transform .45s cubic-bezier(.3,.7,.3,1), opacity .4s, box-shadow .2s; }
+  .dabba.open .tin { transform: translate(-50%, -50%) scale(1); opacity: 1; pointer-events: auto; }
+  .dabba.open .tin:hover { transform: translate(-50%, -50%) scale(1.07); }
+  .dabba.open .tin:nth-child(3) { transition-delay: .05s; }
+  .dabba.open .tin:nth-child(4) { transition-delay: .12s; }
+  .dabba.open .tin:nth-child(5) { transition-delay: .19s; }
+  .dabba.open .tin:nth-child(6) { transition-delay: .26s; }
+  .dabba.open .tin:nth-child(7) { transition-delay: .33s; }
+  .dabba.open .tin:nth-child(8) { transition-delay: .40s; }
+  .tin:focus-visible { outline: 3px solid #D9A441; outline-offset: 6px; }
+  .tin.active { box-shadow: 0 0 0 5px #D9A441, 0 0 0 7px #9aa1ab, 0 5px 9px rgba(0,0,0,0.3); }
   .tin-label { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); white-space: nowrap; font-size: 0.7rem; font-weight: 600; color: #fff; background: rgba(30,16,10,0.72); padding: 3px 7px; border-radius: 999px; pointer-events: none; }
+  .dabba-lid { position: absolute; inset: 0; z-index: 3; border: none; padding: 0; border-radius: 50%; cursor: pointer; background: radial-gradient(circle at 34% 26%, #ffffff, #dfe3e8 35%, #b3b9c2 70%, #8a9099); box-shadow: 0 10px 18px rgba(30,16,10,0.35), inset 0 0 0 10px #b48a45, inset 0 0 0 13px rgba(255,240,200,0.5), inset 0 -6px 14px rgba(0,0,0,0.12); transition: transform .8s cubic-bezier(.3,.7,.3,1), opacity .6s; transform-origin: 50% 100%; }
+  .dabba.open .dabba-lid { transform: translateY(-58%) rotateX(68deg); opacity: 0; pointer-events: none; }
+  .dabba-knob { position: absolute; left: 50%; top: 50%; width: 24%; height: 24%; transform: translate(-50%, -50%); border-radius: 50%; background: radial-gradient(circle at 36% 30%, #fff, #c3c8d0 55%, #7f868f); box-shadow: 0 6px 10px rgba(0,0,0,0.3), inset 0 -3px 6px rgba(0,0,0,0.15); }
+  .lid-hint { position: absolute; left: 50%; bottom: 16%; transform: translateX(-50%); font-size: 0.78rem; letter-spacing: .08em; text-transform: uppercase; color: #6b4a2a; background: rgba(255,250,240,0.9); padding: 4px 10px; border-radius: 999px; white-space: nowrap; }
   .spice-detail { min-height: 3.2em; margin: 6px auto 0; max-width: 520px; color: var(--ink); }
   .sd-name { display: block; font-family: Georgia, serif; font-size: 1.15rem; color: #7E3F4A; }
   .sd-text { display: block; margin-top: 4px; color: var(--muted); }
@@ -862,10 +874,14 @@
   .fav-card:nth-child(3) .thumb img, .fav-card:nth-child(4) .thumb img { transform: scale(1.35); }
   /* no floating dot pattern on the page background */
   body { background-image: none !important; }
-  /* Drinks: one row */
-  ol.wall > li.drinks-row { column-span: all; break-inside: avoid; margin: 0 0 16px; }
-  ol.drinks-inner { display: flex; gap: 16px; list-style: none; margin: 0; padding: 0; }
-  ol.drinks-inner > li.dish { flex: 1 1 0; min-width: 0; margin: 0; }
+  /* Each section: one horizontal row, fixed card size */
+  ol.wall > li.sec-row-wrap { column-span: all; break-inside: avoid; margin: 0 0 16px; }
+  ol.sec-row { display: flex; gap: 14px; overflow-x: auto; list-style: none; margin: 0; padding: 4px 2px 12px; scroll-snap-type: x proximity; -webkit-overflow-scrolling: touch; }
+  ol.sec-row > li.dish { flex: 0 0 200px; width: 200px; margin: 0; display: flex; flex-direction: column; scroll-snap-align: start; }
+  ol.sec-row > li.dish .thumb { width: 100% !important; height: 200px !important; max-height: none !important; object-fit: cover; display: block; flex: none; }
+  ol.sec-row > li.dish .thumb img { width: 100% !important; height: 200px !important; max-height: none !important; object-fit: cover; display: block; }
+  ol.sec-row > li.dish .caption { flex: none; height: 70px; overflow: hidden; box-sizing: border-box; }
+  ol.sec-row > li.dish .dish-name { display: block; white-space: normal; }
 </style>
 </head>
 <body>
@@ -926,14 +942,18 @@
         <h3>Her spice box</h3>
         <p class="spice-sub">The spices she uses in almost everything she makes. Tap a tin to see it.</p>
         <div class="dabba" id="dabba">
-          <div class="dabba-rim"></div>
+          <div class="dabba-base"></div>
+          <button class="dabba-close" type="button" aria-label="Close the spice box"></button>
 <button class="tin" type="button" data-spice="jeera" style="left:50.00%;top:14.00%;--c:#c9a866" aria-label="Jeera"><span class="tin-label">Jeera</span></button>
 <button class="tin" type="button" data-spice="haldi" style="left:81.18%;top:32.00%;--c:#e9a419" aria-label="Haldi"><span class="tin-label">Haldi</span></button>
 <button class="tin" type="button" data-spice="dhania" style="left:81.18%;top:68.00%;--c:#b8864a" aria-label="Dhania powder"><span class="tin-label">Dhania powder</span></button>
 <button class="tin" type="button" data-spice="lalmirch" style="left:50.00%;top:86.00%;--c:#c8321e" aria-label="Lal mirch powder"><span class="tin-label">Lal mirch powder</span></button>
 <button class="tin" type="button" data-spice="garam" style="left:18.82%;top:68.00%;--c:#7a4a2b" aria-label="Garam masala"><span class="tin-label">Garam masala</span></button>
 <button class="tin" type="button" data-spice="salt" style="left:18.82%;top:32.00%;--c:#efe9df" aria-label="Salt"><span class="tin-label">Salt</span></button>
-          <div class="dabba-knob"></div>
+          <button class="dabba-lid" type="button" aria-label="Open the spice box" aria-expanded="false">
+            <span class="dabba-knob"></span>
+            <span class="lid-hint">Tap to open</span>
+          </button>
         </div>
         <div class="spice-detail" id="spice-detail" aria-live="polite">
           <strong class="sd-name">Tap a tin</strong>
@@ -1137,9 +1157,17 @@
     if (!dabba || !detail) return;
     const info = {};
     document.querySelectorAll("[data-info]").forEach(el => { info[el.dataset.info] = { name: el.dataset.name, text: el.textContent.trim() }; });
+    const lid = dabba.querySelector(".dabba-lid");
+    const setOpen = open => {
+      dabba.classList.toggle("open", open);
+      lid.setAttribute("aria-expanded", String(open));
+      lid.setAttribute("aria-label", open ? "Spice box is open" : "Open the spice box");
+    };
     dabba.addEventListener("click", e => {
+      if (e.target.closest(".dabba-lid")) return setOpen(true);
+      if (e.target.closest(".dabba-close")) return setOpen(false);
       const tin = e.target.closest(".tin");
-      if (!tin) return;
+      if (!tin || !dabba.classList.contains("open")) return;
       dabba.querySelectorAll(".tin").forEach(t => t.classList.toggle("active", t === tin));
       const d = info[tin.dataset.spice];
       detail.querySelector(".sd-name").textContent = d.name;
@@ -1287,17 +1315,14 @@
     head.innerHTML = `<h2>${sec.title}</h2><div class="count">${caption}</div>`;
     menuEl.appendChild(head);
 
-    // Drinks sit together in one row
-    let target = menuEl;
-    if (sec.id === "beverages") {
-      const rowLi = document.createElement("li");
-      rowLi.className = "drinks-row";
-      const rowOl = document.createElement("ol");
-      rowOl.className = "drinks-inner";
-      rowLi.appendChild(rowOl);
-      menuEl.appendChild(rowLi);
-      target = rowOl;
-    }
+    // Every section's dishes sit together in one horizontal row
+    const rowLi = document.createElement("li");
+    rowLi.className = "sec-row-wrap";
+    const rowOl = document.createElement("ol");
+    rowOl.className = "sec-row";
+    rowLi.appendChild(rowOl);
+    menuEl.appendChild(rowLi);
+    const target = rowOl;
 
     const groups = [];
     sec.groups.forEach(group => {
